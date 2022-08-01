@@ -60,6 +60,10 @@ class LoginController extends Controller
                 return redirect()->route('ketua-bidang.home');
             }else if(auth()->user()->user_access == 2){
                 return redirect()->route('verifikator.home');
+            }else if(auth()->user()->user_access == 3){
+                return redirect()->route('bendahara.home');
+            }else if(auth()->user()->user_access == 4){
+                return redirect()->route('ketua-harian.home');
             }
             else{
                 return redirect()->intended('login');

@@ -31,6 +31,7 @@
                 <span class="flex d-flex flex-column mr-8pt">
                     <span class="navbar-text-100">@yield('name')</span>
                     <small class="navbar-text-50">@yield('role')</small>
+                    <small class="navbar-text-50">@yield('bidang')</small>
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

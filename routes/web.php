@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\KetuaBidangController;
+use App\Http\Controllers\BendaharaController;
+use App\Http\Controllers\KetuaHarianController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,20 +19,33 @@ use App\Http\Controllers\KetuaBidangController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-/* Ketua Bidang Route List */
+/* Ketua Bidang Routes List */
 Route::middleware(['auth', 'user-access:1'])->group(function () {
-    Route::get('/ketua-bidang/home', [KetuaBidangController::class, 'index'])->name('ketua-bidang.home');
+    Route::get('/ketua-bidang', [KetuaBidangController::class, 'index'])->name('ketua-bidang.home');
+    Route::get('/ketua-bidang/upload_dokumen', [KetuaBidangController::class, 'upload_dokumen'])->name('ketua-bidang.upload_dokumen');
+    Route::post('/ketua-bidang/upload_dokumen', [FileController::class, 'store'])->name('ketua-bidang.store_dokumen');
+    Route::get('/ketua-bidang/download_file/{filename}', [FileController::class, 'downloadFile'])->name('ketua-bidang.download');
 });
 
-/* Verifikator Route List */
+/* Verifikator Routes List */
 Route::middleware(['auth', 'user-access:2'])->group(function () {
-    Route::get('/verifikator/home', [VerifikatorController::class, 'index'])->name('verifikator.home');
+    Route::get('/verifikator', [VerifikatorController::class, 'index'])->name('verifikator.home');
+});
+
+/* Bendahara Routes List */
+Route::middleware(['auth', 'user-access:3'])->group(function () {
+    Route::get('/bendahara', [BendaharaController::class, 'index'])->name('bendahara.home');
+});
+
+/* Ketua Harian Routes List */
+Route::middleware(['auth', 'user-access:4'])->group(function () {
+    Route::get('/ketua-harian', [KetuaHarianController::class, 'index'])->name('ketua-harian.home');
 });

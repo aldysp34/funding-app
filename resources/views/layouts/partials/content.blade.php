@@ -16,5 +16,16 @@
 </div>
 
 <div class="js-fix-footer footer border-top-2">
-    @yield('content-footer')
+<div class="container-fluid page__container page-section d-flex flex-column">
+    <a href="https://www.bekasikab.go.id/">
+        <p class="text-70 brand mb-24pt">
+            <img class="brand-icon"
+                    src="{{asset('assets/images/kabBekasi.svg')}}"
+                    width="30"
+                    alt="Huma"> Pemerintah Kabupaten Bekasi
+        </p>
+    </a>
+    
+    <p class="text-50 small mb-0">Copyright 2019 &copy; All rights reserved.</p>
+</div>
 </div>

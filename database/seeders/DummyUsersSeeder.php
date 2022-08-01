@@ -17,17 +17,26 @@ class DummyUsersSeeder extends Seeder
     {
         $userData = [
             [
-               'name'=>'Admin',
-               'email'=>'johndoe@hotmail.com',
-                'user_access'=>'1',
+               'name'=>'Muhammad Aldi Surya Putra',
+               'email'=>'aldysp34@gmail.com',
+               'user_access'=>'3',
+               'bidang_id' => '1' ,
                'password'=> bcrypt('aldysp34'),
             ],
             [
-               'name'=>'Regular User',
-               'email'=>'reguser@gmail.com',
-                'user_access'=>'2',
+               'name'=>'Ibnu Syuhada',
+               'email'=>'ibnu24@gmail.com',
+                'user_access'=>'4',
+                'bidang_id' => '2' ,
                'password'=> bcrypt('aldysp34'),
             ],
+            [
+                'name'=>'Maulana Luthfi',
+                'email'=>'lupi24@gmail.com',
+                 'user_access'=>'1',
+                 'bidang_id' => '2' ,
+                'password'=> bcrypt('aldysp34'),
+             ],
         ];
   
         foreach ($userData as $key => $val) {

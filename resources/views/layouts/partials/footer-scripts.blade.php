@@ -54,3 +54,5 @@
 
 <!-- App Settings (safe to remove) -->
 <script src="{{asset('assets/js/app-settings.js')}}"></script>
+
+@yield('new_scripts')

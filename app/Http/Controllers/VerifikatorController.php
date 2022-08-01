@@ -12,6 +12,6 @@ class VerifikatorController extends Controller
     }
 
     public function index(){
-        return view('test_verifikator', ['role' => 'Ketua Bidang']);
+        return view('verifikator.verifikator_index', ['role' => 'Verifikator']);
     }
 }

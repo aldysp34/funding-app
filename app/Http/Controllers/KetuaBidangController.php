@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\File;
 
 class KetuaBidangController extends Controller
 {
@@ -11,6 +12,13 @@ class KetuaBidangController extends Controller
     }
 
     public function index(){
-        return view('test_ketua_bidang', ['role' => 'Ketua Bidang']);
+        $proposal = File::where('user_id', auth()->user()->id)->get();
+        return view('ketuaBidang.ketuaBidang_index', ['role' => 'Ketua Bidang',
+                                                      'proposal' => $proposal, 
+                                                    ]);
+    }
+
+    public function upload_dokumen(){
+        return view('ketuaBidang.ketuaBidang_uploadDoc', ['role' => 'Ketua Bidang']);
     }
 }
