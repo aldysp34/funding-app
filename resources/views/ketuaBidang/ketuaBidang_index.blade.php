@@ -144,7 +144,7 @@
                             style="white-space: nowrap;">
                         <div class="media-body">
                             <div class="d-flex flex-column">
-                                <a class="js-lists-values-project h5" href="${url}" onclick = "downloadFiles()"><strong>${x.subject}</strong></a>
+                                <a class="js-lists-values-project h5" href="${url}"><strong>${x.subject}</strong></a>
                             </div>
                         </div>
                     </div>

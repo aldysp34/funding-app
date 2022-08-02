@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('suratbayars', function (Blueprint $table) {
+        Schema::create('lembar_verifikasis', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
             $table->string('filename');
             $table->string('type');
             $table->string('size');
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suratbayars');
+        Schema::dropIfExists('lembar_verifikasis');
     }
 };

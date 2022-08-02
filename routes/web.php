@@ -7,6 +7,7 @@ use App\Http\Controllers\KetuaBidangController;
 use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\KetuaHarianController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LembarVerifikasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,10 @@ Route::middleware(['auth', 'user-access:1'])->group(function () {
 /* Verifikator Routes List */
 Route::middleware(['auth', 'user-access:2'])->group(function () {
     Route::get('/verifikator', [VerifikatorController::class, 'index'])->name('verifikator.home');
+    Route::get('/verifikator/download_file/{filename}', [FileController::class, 'downloadFile'])->name('verifikator.download');
+    Route::get('/verifikator/approveRejectProposal/{id}/{data}', [VerifikatorController::class, 'approvedRejectedProposal'])->name('verifikator.approvedRejected');
+    Route::post('/verifikator/upload_lembarVerifikasi/{id}/{data}', [LembarVerifikasiController::class, 'store'])->name('verifikator.upload_lembarVerifikasi');
+    Route::get('/verifikator/download_lembarVerifikasi/{filename}', [LembarVerifikasiController::class, 'downloadFile'])->name('verifikator.download_lembarVerifikasi');
 });
 
 /* Bendahara Routes List */

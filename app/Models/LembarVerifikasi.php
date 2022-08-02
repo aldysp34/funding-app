@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Suratbayar extends Model
+class LembarVerifikasi extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'subject',
         'filename',
         'type',
         'size',
         'file_id'
     ];
-    
+
     public function file(){
         return $this->belongsTo('App\Models\Suratbayar');
     }

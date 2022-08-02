@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function bidang(){
         return $this->belongsTo('App\Models\Bidang');
     }
+
+    public function file(){
+        return $this->hasMany('App\Models\File');
+    }
 }

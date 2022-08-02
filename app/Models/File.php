@@ -19,7 +19,16 @@ class File extends Model
         'ketuaHarian_approved',
         'user_id'
     ];
+
     public function suratbayar(){
         return $this->hasOne('App\Models\Suratbayar');
+    }
+
+    public function lembarVerifikasi(){
+        return $this->hasOne('App\Models\LembarVerifikasi');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
     }
 }

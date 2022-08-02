@@ -11,12 +11,13 @@ class FileController extends Controller
 {
     public function store(StoreFileRequest $request){
         $subject = $request->input('subject');
-        $filename = auth()->user()->bidang->name.'_'.$subject.'.'.$request->file->extension();
+        $filename = auth()->user()->bidang->name.'_Proposal_'.$subject.'.'.$request->file->extension();
         $filename = strtolower($filename);
         $type = $request->file->getClientMimeType();
         $size = $request->file->getSize();
 
-        $path = $request->file->move('files', $filename);
+        $filePath = strtolower('files/'.auth()->user()->bidang->name.'/proposal');
+        $path = $request->file->move($filePath, $filename);
 
         File::create([
             'subject' => $subject,
@@ -34,8 +35,8 @@ class FileController extends Controller
     }
 
     public function downloadFile($filename){
-        $fileName = auth()->user()->bidang->name."_".$filename.".pdf";
-        $file = public_path()."/files"."/".$fileName;
+        $fileName = auth()->user()->bidang->name."_proposal_".$filename.".pdf";
+        $file = public_path()."/files"."/".auth()->user()->bidang->name."/proposal"."/".$fileName;
 
         $headers = array(
             'Content-Type: application/pdf',
