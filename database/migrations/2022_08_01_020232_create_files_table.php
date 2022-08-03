@@ -23,9 +23,13 @@ return new class extends Migration
             $table->integer('verifikator_approved');
             $table->integer('ketuaHarian_approved');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('verifikator_id')->nullable();
+            $table->unsignedBigInteger('ketuaHarian_id')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('verifikator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ketuaHarian_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -17,7 +17,9 @@ class File extends Model
         'status',
         'verifikator_approved',
         'ketuaHarian_approved',
-        'user_id'
+        'user_id',
+        'verifikator_id',
+        'ketuaHarian_id'
     ];
 
     public function suratbayar(){
@@ -29,6 +31,14 @@ class File extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    public function verifikator(){
+        return $this->belongsTo('App\Models\User', 'verifikator_id');
+    }
+
+    public function ketuaHarian(){
+        return $this->belongsTo('App\Model\User', 'ketuaHarian_id');
     }
 }

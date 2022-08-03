@@ -23,6 +23,7 @@ class LembarVerifikasiController extends Controller
             'size' => $size,
             'file_id' => $id
         ]);
+        
 
         return redirect()->route('verifikator.home')->with(['msg' => 'Dokumen Berhasil Diupload']);
     }

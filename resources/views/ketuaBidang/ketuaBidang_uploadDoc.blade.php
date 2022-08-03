@@ -118,7 +118,7 @@
     <script>
         const filename = document.getElementById('filename')
         function clickme(){
-            let data = $('input[type=file').val()
+            let data = $('input[type=file]').val()
             data = data.split("\\");
             document.getElementById('filename').innerHTML = data[2]
         }

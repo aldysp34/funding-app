@@ -34,7 +34,6 @@ class VerifikatorController extends Controller
             }
             else if(($proposal->user->bidang->id == auth()->user()->bidang->id) && 
                 ($proposal->verifikator_approved == 2)){
-                if($proposal->lembar)
                 array_push($rejectedProposal, $proposal);
             }
         }
@@ -56,6 +55,7 @@ class VerifikatorController extends Controller
         $file = File::findOrFail($id);
         if($file){
             $file->verifikator_approved = $data;
+            $file->verifikator_id = auth()->user()->id;
             $file->save();
         }
 

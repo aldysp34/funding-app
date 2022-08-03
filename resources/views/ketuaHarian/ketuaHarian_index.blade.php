@@ -25,7 +25,7 @@
                         role="tab"
                         aria-selected="true"
                         class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start active">
-                        <span class="h4 mb-0 mr-3">Pengajuan Surat Bayar</span>
+                        <span class="h4 mb-0 mr-3">Pengajuan Proposal</span>
                         
                         </span>
                     </div>
@@ -46,13 +46,14 @@
                         <th style="width: 150px;">
                             <a href="javascript:void(0)"
                                 class="sort"
-                                data-sort="js-lists-values-project">Surat Bayar</a>
+                                data-sort="js-lists-values-project">Proposal</a>
                         </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
-                                data-sort="js-lists-values-status">Status</a>
+                                data-sort="js-lists-values-status">Verifikator</a>
                         </th>
+                        
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -63,42 +64,8 @@
                     </tr>
                 </thead>
                 <tbody class="list"
-                        id="projects">
-                    <tr>
-                        <td>
-                            <div class="media flex-nowrap align-items-center"
-                                    style="white-space: nowrap;">
-                                <div class="media-body">
-                                    <div class="d-flex flex-column">
-                                        <a class="js-lists-values-project h5" href="{{route('login')}}"><strong>Pengadaan Uang Warga</strong></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td>
-                            <div class="d-flex flex-column">
-                                <small class="js-lists-values-status text-50 mb-4pt">Dalam Proses</small>
-                                <span class="indicator-line rounded bg-warning"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="button-list">
-                                <button type="button" class="btn btn-accent">
-                                <i class="material-icons icon--left">launch</i>
-                                Download Proposal
-                                </button>
-                                <button type="button" class="btn btn-primary">
-                                <i class="material-icons icon--left">star</i>
-                                Approve
-                                </button>
-                                <button type="button" class="btn btn-danger">
-                                <i class="material-icons icon--left">close</i>
-                                Tolak
-                                </button>
-                            </div>
-                        </td>  
-                    </tr>
+                        id="proposalApproving">
+                    
                 </tbody>
             </table>
         </div>
@@ -127,5 +94,79 @@
     @endsection
 
     @section('new_scripts')
-    <script>console.log('ini buat nambahin script')</script>
+    <script>
+        const divProposalApproving = document.getElementById('proposalApproving');
+        let dataProposalApproving = {!! $proposal_need_approved !!}
+        let tagProposalApproving = ''
+        console.log(dataProposalApproving)
+        if(dataProposalApproving.length != 0){
+            dataProposalApproving.forEach((x) => {
+                
+                let urlDownloadProposal = '{{ route("ketua-harian.download", ":id")}}';
+                urlDownloadProposal = urlDownloadProposal.replace(':id', x.subject);
+
+                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ":id")}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+
+                let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ":id")}}';
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+
+                let urlApprove = '{{ route("ketua-harian.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
+                urlApprove = urlApprove.replace('data_id', x.id);
+                urlApprove = urlApprove.replace('data_data', 1);
+    
+                let urlReject = '{{ route("ketua-harian.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
+                urlReject = urlReject.replace('data_id', x.id);
+                urlReject = urlReject.replace('data_data', 2);
+
+                tagProposalApproving +=
+                `<tr>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <a class="js-lists-values-project h5" href="#"><strong>${x.subject}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="js-lists-values-project h5"><strong>${x.verifikator.name}</strong></div>
+                        </div>
+                    </td>
+                    
+                    <td>
+                        <div class="button-list">
+                            <a type="button" class="btn btn-accent" href="${urlDownloadProposal}">
+                                <i class="material-icons icon--left">launch</i>
+                                Download Proposal
+                            </a>
+                            <a type="button" class="btn btn-primary" href="${urlDownloadLembarVerifikasi}">
+                                <i class="material-icons icon--left">launch</i>
+                                Download Lembar Verifikasi
+                            </a>
+                            <a type="button" class="btn btn-success" href="${urlDownloadSuratBayar}">
+                                <i class="material-icons icon--left">launch</i>
+                                Download Surat Bayar
+                            </a>
+                        </div>
+                        <div class="button-list">
+                            <a type="button" class="btn btn-primary" href="${urlApprove}">
+                                <i class="material-icons icon--left">star</i>
+                                Setujui
+                            </a>
+                            <a type="button" class="btn btn-danger" href="${urlReject}">
+                                <i class="material-icons icon--left">close</i>
+                                Tolak
+                            </a>
+                        </div>
+                    </td>  
+                </tr>`
+            })
+            divProposalApproving.innerHTML = tagProposalApproving
+        }
+    </script>
     @endsection

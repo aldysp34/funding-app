@@ -17,8 +17,8 @@ class FileController extends Controller
         $size = $request->file->getSize();
 
         $filePath = strtolower('files/'.auth()->user()->bidang->name.'/proposal');
-        $path = $request->file->move($filePath, $filename);
 
+        $path = $request->file->move($filePath, $filename);
         File::create([
             'subject' => $subject,
             'filename' => $filename,
@@ -30,6 +30,7 @@ class FileController extends Controller
             'ketuaHarian_approved' => 0,
             'user_id' => auth()->user()->id
         ]);
+        
 
         return redirect()->route('ketua-bidang.upload_dokumen')->with(['msg' => 'Dokumen Berhasil Diupload']);
     }

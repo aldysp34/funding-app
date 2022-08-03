@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('suratbayars', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
             $table->string('filename');
             $table->string('type');
             $table->string('size');

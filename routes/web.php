@@ -8,6 +8,7 @@ use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\KetuaHarianController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LembarVerifikasiController;
+use App\Http\Controllers\SuratBayarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,9 +49,17 @@ Route::middleware(['auth', 'user-access:2'])->group(function () {
 /* Bendahara Routes List */
 Route::middleware(['auth', 'user-access:3'])->group(function () {
     Route::get('/bendahara', [BendaharaController::class, 'index'])->name('bendahara.home');
+    Route::get('/bendahara/download_file/{filename}', [FileController::class, 'downloadFile'])->name('bendahara.download');
+    Route::get('/bendahara/download_lembarVerifikasi/{filename}', [LembarVerifikasiController::class, 'downloadFile'])->name('bendahara.download_lembarVerifikasi');
+    Route::post('/bendahara/upload_suratbayar/{id}/{data}', [SuratBayarController::class, 'store'])->name('bendahara.upload_suratBayar');
+    Route::get('/bendahara/download_suratbayar/{filename}', [SuratBayarController::class, 'downloadFile'])->name('bendahara.download_suratBayar');
 });
 
 /* Ketua Harian Routes List */
 Route::middleware(['auth', 'user-access:4'])->group(function () {
     Route::get('/ketua-harian', [KetuaHarianController::class, 'index'])->name('ketua-harian.home');
+    Route::get('/ketua-harian/download_file/{filename}', [FileController::class, 'downloadFile'])->name('ketua-harian.download');
+    Route::get('/ketua-harian/download_lembarVerifikasi/{filename}', [LembarVerifikasiController::class, 'downloadFile'])->name('ketua-harian.download_lembarVerifikasi');
+    Route::get('/ketua-harian/download_suratbayar/{filename}', [SuratBayarController::class, 'downloadFile'])->name('ketua-harian.download_suratBayar');
+    Route::get('/ketua-harian/approveRejectProposal/{id}/{data}', [KetuaHarianController::class, 'approvedRejectedProposal'])->name('ketua-harian.approvedRejected');
 });
