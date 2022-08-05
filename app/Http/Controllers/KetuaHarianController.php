@@ -25,8 +25,10 @@ class KetuaHarianController extends Controller
                         array_push($proposal_need_approved, $proposal);
 
                     }else if($proposal->ketuaHarian_approved == 1){
+                        $proposal->verifikator;
                         array_push($proposal_approved, $proposal);
                     }else{
+                        $proposal->verifikator;
                         array_push($proposal_rejected, $proposal);
                     }
                 }
@@ -50,8 +52,12 @@ class KetuaHarianController extends Controller
 
         if($data == 1){
             $msg = 'Berhasil Approve Proposal';
+            $file->status = 1;
+            $file->save();
         }else if($data == 2){
             $msg = 'Berhasil Reject Proposal';
+            $file->status = 2;
+            $file->save();
         }
 
         return redirect()->back()->with(['msg_approveReject' => $msg]);

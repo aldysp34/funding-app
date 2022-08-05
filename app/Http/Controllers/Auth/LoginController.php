@@ -65,6 +65,7 @@ class LoginController extends Controller
             }else if(auth()->user()->user_access == 4){
                 return redirect()->route('ketua-harian.home');
             }
+            // Return to middleware Admin
             else{
                 return redirect()->intended('login');
             }

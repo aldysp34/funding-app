@@ -26,6 +26,7 @@ class FileController extends Controller
             'size' => $size,
             'path' => $path,
             'status' => 3,
+            'ajukan_status' => 1,
             'verifikator_approved' => 0,
             'ketuaHarian_approved' => 0,
             'user_id' => auth()->user()->id
@@ -48,5 +49,18 @@ class FileController extends Controller
         else{
             abort(404);
         }
+    }
+
+    public function cancelSubmit($id){
+        $file = File::findOrFail($id);
+
+        if($file){
+            $file->ajukan_status = 0;
+            $file->save();
+        }else{
+            abort(404);
+        }
+
+        return redirect()->route('ketua-bidang.home')->with(['msg' => 'Berhasil Membatalkan Pengajuan!']);
     }
 }

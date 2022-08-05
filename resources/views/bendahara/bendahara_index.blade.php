@@ -70,7 +70,7 @@
             <table class="table mb-0 thead-border-top-0 table-nowrap">
                 <thead>
                     <tr>
-                        <th style="width: 150px;">
+                    <th style="width: 150px;">
                             <a href="javascript:void(0)"
                                 class="sort"
                                 data-sort="js-lists-values-project">Proposal</a>
@@ -78,7 +78,17 @@
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
-                                data-sort="js-lists-values-status">Status</a>
+                                data-sort="js-lists-values-status">Pengaju</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Verifikator</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Ketua Harian</a>
                         </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
@@ -90,45 +100,8 @@
                     </tr>
                 </thead>
                 <tbody class="list"
-                        id="projects">
-                        <tr>
-                        <td>
-                            <div class="media flex-nowrap align-items-center"
-                                    style="white-space: nowrap;">
-                                <div class="avatar avatar-sm mr-8pt">
-                                    <span class="avatar-title rounded bg-primary text-white">SM</span>
-                                </div>
-                                <div class="media-body">
-                                    <div class="d-flex flex-column">
-                                        <a class="js-lists-values-project" href="{{route('login')}}"><strong>Social Media API</strong></a>
-                                    </div>
-                                </div>
-                            </div>
+                        id="projectApproved">
 
-                        </td>
-                        <td>
-                            <div class="d-flex flex-column">
-                                <small class="js-lists-values-status text-50 mb-4pt">Dalam Proses</small>
-                                <span class="indicator-line rounded bg-warning"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="button-list">
-                                <button type="button" class="btn btn-accent">
-                                <i class="material-icons icon--left">launch</i>
-                                Download
-                                </button>
-                                <button type="button" class="btn btn-primary">
-                                <i class="material-icons icon--left">close</i>
-                                Reject
-                                </button>
-                                <button type="button" class="btn btn-success">
-                                <i class="material-icons icon--left">close</i>
-                                Reject
-                                </button>
-                            </div>
-                        </td>  
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -355,6 +328,102 @@
         }
 
         divProposalSend.innerHTML = tagProposalSend
+
+        const divProposalApproved = document.getElementById('projectApproved')
+        let proposalApproved = {!! $proposal_approved !!}
+        console.log(proposalApproved)
+        let tagProposalApproved = ''
+        if(proposalApproved.length != 0){
+            proposalApproved.forEach((x) => {
+                let urlProposalDownload = '{{ route("bendahara.download", ":id")}}';
+                urlProposalDownload = urlProposalDownload.replace(':id', x.subject);
+
+                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ":id")}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+
+                let urlUploadSuratBayar = '{{ route("bendahara.upload_suratBayar", ["id" => "data_id", "data" => "data_data"]) }}';
+                urlUploadSuratBayar = urlUploadSuratBayar.replace('data_id', x.id);
+                urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.subject);
+
+                let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ":id")}}';
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+            
+                tagProposalApproved +=
+                `<tr>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.subject}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5" ><strong>${x.user.name}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5" ><strong>${x.verifikator.name}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                            <div class="media flex-nowrap align-items-center"
+                                    style="white-space: nowrap;">
+                                <div class="media-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="js-lists-values-project h5" ><strong>${x.ketua_harian.name}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    <td>
+                        <a class="btn btn-success" href="${urlProposalDownload}"><i class="material-icons icon--left">launch</i><strong>Download Proposal</strong></a>
+                        <br>
+                        <br>
+                        <a class="btn btn-accent" href="${urlDownloadLembarVerifikasi}"><i class="material-icons icon--left">launch</i><strong>Download Lembar Verifikasi</strong></a>
+                        <br>
+                        <br>
+                        <a class="btn btn-secondary" href="${urlDownloadSuratBayar}"><i class="material-icons icon--left">launch</i><strong>Download Surat Bayar</strong></a>
+                        
+                    </td>  
+                </tr>`
+                
+            })
+        }else{
+            tagProposalApproved +=
+                `<tr>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5""><strong>Tidak Ada Data</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>`
+        }
+
+        divProposalApproved.innerHTML = tagProposalApproved
+
+
 
         function clickMe(){
             const inputTag = document.getElementById('iniFile')

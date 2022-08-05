@@ -29,12 +29,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 /* Ketua Bidang Routes List */
 Route::middleware(['auth', 'user-access:1'])->group(function () {
     Route::get('/ketua-bidang', [KetuaBidangController::class, 'index'])->name('ketua-bidang.home');
     Route::get('/ketua-bidang/upload_dokumen', [KetuaBidangController::class, 'upload_dokumen'])->name('ketua-bidang.upload_dokumen');
     Route::post('/ketua-bidang/upload_dokumen', [FileController::class, 'store'])->name('ketua-bidang.store_dokumen');
     Route::get('/ketua-bidang/download_file/{filename}', [FileController::class, 'downloadFile'])->name('ketua-bidang.download');
+    Route::get('/ketua-bidang/download_suratbayar/{filename}', [SuratBayarController::class, 'downloadFile'])->name('ketua-bidang.download_suratBayar');
+    Route::get('/ketua-bidang/cancel/{id}', [FileController::class, 'cancelSubmit'])->name('ketua-bidang.cancel');
 });
 
 /* Verifikator Routes List */
@@ -62,4 +65,9 @@ Route::middleware(['auth', 'user-access:4'])->group(function () {
     Route::get('/ketua-harian/download_lembarVerifikasi/{filename}', [LembarVerifikasiController::class, 'downloadFile'])->name('ketua-harian.download_lembarVerifikasi');
     Route::get('/ketua-harian/download_suratbayar/{filename}', [SuratBayarController::class, 'downloadFile'])->name('ketua-harian.download_suratBayar');
     Route::get('/ketua-harian/approveRejectProposal/{id}/{data}', [KetuaHarianController::class, 'approvedRejectedProposal'])->name('ketua-harian.approvedRejected');
+});
+
+/* Admin Routes List */
+Route::middleware(['auth', 'user-access:4'])->group(function () {
+    // Route Admin
 });

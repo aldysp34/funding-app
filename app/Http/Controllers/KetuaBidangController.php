@@ -13,8 +13,19 @@ class KetuaBidangController extends Controller
 
     public function index(){
         $proposal = File::where('user_id', auth()->user()->id)->get();
+
+        $proposal_submit = array();
+        $proposal_cancel = array();
+        foreach($proposal as $x){
+            if($x->ajukan_status == 1){
+                array_push($proposal_submit, $x);
+            }else{
+                array_push($proposal_cancel, $x);
+            }
+        }
         return view('ketuaBidang.ketuaBidang_index', ['role' => 'Ketua Bidang',
-                                                      'proposal' => $proposal, 
+                                                      'proposal_cancel' => json_encode($proposal_cancel), 
+                                                      'proposal_submit' => json_encode($proposal_submit)
                                                     ]);
     }
 

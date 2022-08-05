@@ -23,7 +23,7 @@ class VerifikatorController extends Controller
         
         forEach($proposals as $proposal){
             if(($proposal->user->bidang->id == auth()->user()->bidang->id) && 
-                ($proposal->verifikator_approved == 0)){
+                ($proposal->verifikator_approved == 0 && $proposal->ajukan_status == 1)){
                 array_push($proposal_need_approved, $proposal); 
             }
             else if(($proposal->user->bidang->id == auth()->user()->bidang->id) && 
@@ -61,8 +61,12 @@ class VerifikatorController extends Controller
 
         if($data == 1){
             $msg = 'Berhasil Approve Proposal';
+            $file->status = 1;
+            $file->save();
         }else if($data == 2){
             $msg = 'Berhasil Reject Proposal';
+            $file->status = 2;
+            $file->save();
         }
 
         return redirect()->back()->with(['msg_approveReject' => $msg]);

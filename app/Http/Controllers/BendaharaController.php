@@ -26,6 +26,10 @@ class BendaharaController extends Controller
                         $proposal->suratbayar;
                     }
                 }else if($proposal->verifikator_approved == 1 && $proposal->ketuaHarian_approved == 1){
+                    $proposal->lembar_verifikasi;
+                    $proposal->verifikator;
+                    $proposal->suratbayar;
+                    $proposal->ketuaHarian;
                     array_push($proposal_approved, $proposal);
                 }
             }

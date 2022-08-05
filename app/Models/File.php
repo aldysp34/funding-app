@@ -15,6 +15,7 @@ class File extends Model
         'type',
         'size',
         'status',
+        'ajukan_status',
         'verifikator_approved',
         'ketuaHarian_approved',
         'user_id',
@@ -39,6 +40,6 @@ class File extends Model
     }
 
     public function ketuaHarian(){
-        return $this->belongsTo('App\Model\User', 'ketuaHarian_id');
+        return $this->belongsTo('App\Models\User', 'ketuaHarian_id');
     }
 }

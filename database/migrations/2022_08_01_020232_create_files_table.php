@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('size');
             $table->integer('status');
+            $table->integer('ajukan_status');
             $table->integer('verifikator_approved');
             $table->integer('ketuaHarian_approved');
             $table->unsignedBigInteger('user_id');
