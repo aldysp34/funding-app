@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'Bidang')
 
 @section('content-header')
     <h2 class="mb-0">Selamat Datang {{auth()->user()->name}}</h2>
