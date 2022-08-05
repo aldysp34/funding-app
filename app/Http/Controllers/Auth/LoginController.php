@@ -64,8 +64,9 @@ class LoginController extends Controller
                 return redirect()->route('bendahara.home');
             }else if(auth()->user()->user_access == 4){
                 return redirect()->route('ketua-harian.home');
+            }else if(auth()->user()->user_access == 5){
+                return redirect()->route('admin.home');
             }
-            // Return to middleware Admin
             else{
                 return redirect()->intended('login');
             }

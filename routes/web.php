@@ -9,6 +9,7 @@ use App\Http\Controllers\KetuaHarianController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\LembarVerifikasiController;
 use App\Http\Controllers\SuratBayarController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,9 @@ Route::middleware(['auth', 'user-access:4'])->group(function () {
 });
 
 /* Admin Routes List */
-Route::middleware(['auth', 'user-access:4'])->group(function () {
-    // Route Admin
+Route::middleware(['auth', 'user-access:5'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/admin/bidang', [AdminController::class, 'bidang'])->name('admin.bidang');
+    Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user');
+    Route::get('/admin/files', [AdminController::class, 'files'])->name('admin.files');
 });

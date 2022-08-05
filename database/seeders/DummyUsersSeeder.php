@@ -50,6 +50,12 @@ class DummyUsersSeeder extends Seeder
                 'user_access'=>'1',
                 'bidang_id' => '1' ,
                 'password'=> bcrypt('aldysp34'),
+             ],
+             [
+               'name' => 'Abdul Yafi K',
+               'email' => 'yafi@gmail.com',
+               'user_access' => '5',
+               'password' => bcrypt('aldysp34')
              ]
         ];
   

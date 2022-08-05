@@ -77,7 +77,7 @@
                         role="tab"
                         aria-selected="true"
                         class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start active">
-                        <span class="h2 mb-0 mr-3">Pengajuan Proposal</span>
+                        <span class="h2 mb-0 mr-3">Proposal yang Dibatalkan</span>
                     </div>
                 </div>
                 
