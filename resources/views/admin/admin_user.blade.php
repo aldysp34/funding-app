@@ -41,6 +41,21 @@
             </div>
         </div>
     </div>
+    @elseif(session()->has('errorMsg'))
+    <div class="alert alert-accent mb-0"
+            role="alert">
+        <div class="d-flex flex-wrap align-items-start">
+            <div class="mr-8pt">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="flex"
+                    style="min-width: 180px">
+                <small class="text-black-100">
+                    <strong>Well Done!</strong> {{session()->get('errorMsg')}}
+                </small>
+            </div>
+        </div>
+    </div>
 @endif
 <div class="card dashboard-area-tabs mb-32pt">
     <div class="card-header p-0 nav">
@@ -68,12 +83,6 @@
         <table class="table mb-0 thead-border-top-0 table-nowrap">
             <thead>
                 <tr>
-                    <th style="width: 30px;">
-                        <a href="javascript:void(0)"
-                            class="sort"
-                            data-sort="js-lists-values-project">No</a>
-                    </th>
-                    
                     <th style="width: 100px;">
                         <a href="javascript:void(0)"
                             class="sort"
@@ -84,6 +93,11 @@
                         <a href="javascript:void(0)"
                             class="sort"
                             data-sort="js-lists-values-budget">Jabatan</a>
+                    </th>
+                    <th style="width: 100px;">
+                        <a href="javascript:void(0)"
+                            class="sort"
+                            data-sort="js-lists-values-budget">Bidang</a>
                     </th>
                     <th style="width: 80px;">
                         <a href="javascript:void(0)"
@@ -126,7 +140,7 @@
 
         <table class="table mb-0 thead-border-top-0 table-nowrap">
             <div class="col-auto">
-                <form action="#" method="post">
+                <form action="{{route('admin.store_user')}}" method="post">
                     <br>
                     @csrf
                     <div class="form-row">
@@ -148,27 +162,28 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="jabatanName" class="form-label">Jabatan</label>
+                        <select name="jabatanName" id="jabatanName" data-toggle="select" class="form-control">
+                            <option value="1">Ketua Bidang</option>
+                            <option value="2">Verifikator</option>
+                            <option value="3">Bendahara</option>
+                            <option value="4">Ketua Harian</option>
+                            <option value="5">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bidang">
                         <label class="form-label"
                                 for="bidangName">Bidang</label>
                         <select id="bidangName"
                                 name="bidangName"
                                 data-toggle="select"
                                 class="form-control">
-                            <option selected="">My first option</option>
-                            <option>Another option</option>
-                            <option>Third option is here</option>
+                            @foreach($bidang as $x)
+                                <option value="{{ $x->id }}">{{ $x->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="jabatanName" class="form-label">Jabatan</label>
-                        <select name="jabatanName" id="jabatanName" data-toggle="select" class="form-control">
-                            <option value="" selected="">Ketua Bidang</option>
-                            <option value="">Verifikator</option>
-                            <option value="">Bendahara</option>
-                            <option value="">Ketua Harian</option>
-                            <option value="">Admin</option>
-                        </select>
-                    </div>
+                    
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Tambahkan</button>
                     </div>
@@ -228,4 +243,131 @@
         </li>
     </ul>
 </div>
+@endsection
+
+@section('new_scripts')
+<script>
+    const userList = document.getElementById('userList')
+    let data = {!! $user !!};
+    console.log(data)
+    let tagUserList = ''
+    if(data.length != 0){
+        data.forEach((x) => {
+            let jabatan = (y) => {
+                    if(y == 1){
+                        return 'Ketua Bidang'
+                    }else if(y == 2){
+                        return 'Verifikator'
+                    }else if(y == 3){
+                        return 'Bendahara'
+                    }else if(y == 4){
+                        return 'Ketua Harian'
+                    }else{
+                        return 'Admin'
+                    }
+                }
+            let urlDestroy = '{{ route("admin.destroy_user", ":id")}}';
+            urlDestroy = urlDestroy.replace(':id', x.id);
+            if(x.bidang){
+                tagUserList += `
+                <tr>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.name}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${jabatan(x.user_access)}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.bidang.name}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="button-list">
+                            <form method="POST" action="${urlDestroy}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Hapus</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>`
+            }else{
+                tagUserList += `
+                <tr>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.name}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${jabatan(x.user_access)}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>-</strong></div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </td> 
+                </tr>`
+            }
+        })
+    }else{
+        tagUserList += `
+        <tr>
+            <td>
+                <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>Tidak Ada Data</strong></div>
+                                </div>
+                            </div>
+                </div>
+            </td>
+        </tr>
+        `
+    }
+    userList.innerHTML = tagUserList
+
+</script>
 @endsection

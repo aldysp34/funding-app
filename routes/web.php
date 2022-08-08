@@ -10,6 +10,8 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\LembarVerifikasiController;
 use App\Http\Controllers\SuratBayarController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BidangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,4 +76,9 @@ Route::middleware(['auth', 'user-access:5'])->group(function () {
     Route::get('/admin/bidang', [AdminController::class, 'bidang'])->name('admin.bidang');
     Route::get('/admin/user', [AdminController::class, 'user'])->name('admin.user');
     Route::get('/admin/files', [AdminController::class, 'files'])->name('admin.files');
+    Route::post('/admin/adduser', [UserController::class, 'store'])->name('admin.store_user');
+    Route::post('/admin/add_bidang', [BidangController::class, 'store'])->name('admin.store_bidang');
+    Route::post('/admin/hapus_bidang/{id}', [BidangController::class, 'destroy'])->name('admin.destroy_bidang');
+    Route::post('/admin/hapus_user/{id}', [UserController::class, 'destroy'])->name('admin.destroy_user');
+    Route::post('/admin/hapus_file/{id}', [FileController::class, 'destroy'])->name('admin.destroy_file');
 });

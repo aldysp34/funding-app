@@ -41,6 +41,21 @@
             </div>
         </div>
     </div>
+    @elseif(session()->has('errorMsg'))
+    <div class="alert alert-accent mb-0"
+            role="alert">
+        <div class="d-flex flex-wrap align-items-start">
+            <div class="mr-8pt">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="flex"
+                    style="min-width: 180px">
+                <small class="text-black-100">
+                    <strong>Well Done!</strong> {{session()->get('errorMsg')}}
+                </small>
+            </div>
+        </div>
+    </div>
 @endif
 <div class="card dashboard-area-tabs mb-32pt">
     <div class="card-header p-0 nav">
@@ -68,12 +83,6 @@
         <table class="table mb-0 thead-border-top-0 table-nowrap">
             <thead>
                 <tr>
-                    <th style="width: 30px;">
-                        <a href="javascript:void(0)"
-                            class="sort"
-                            data-sort="js-lists-values-project">No</a>
-                    </th>
-                    
                     <th style="width: 100px;">
                         <a href="javascript:void(0)"
                             class="sort"
@@ -81,6 +90,11 @@
                     </th>
 
                     <th style="width: 100px;">
+                        <a href="javascript:void(0)"
+                            class="sort"
+                            data-sort="js-lists-values-budget">Jumlah User</a>
+                    </th>
+                    <th style="width: 80px;">
                         <a href="javascript:void(0)"
                             class="sort"
                             data-sort="js-lists-values-budget">Ketua Harian</a>
@@ -126,7 +140,7 @@
 
         <table class="table mb-0 thead-border-top-0 table-nowrap">
             <div class="col-auto">
-                <form action="#" method="post">
+                <form action="{{ route('admin.store_bidang') }}" method="post">
                     <br>
                     @csrf
                     <div class="form-row">
@@ -194,4 +208,88 @@
         </li>
     </ul>
 </div>
+@endsection
+
+@section('new_scripts')
+<script>
+    const divBidangList = document.getElementById('bidangList');
+    let data = {!! $bidang !!}
+    console.log(data)
+
+    let tagBidangList = ''
+    if(data.length != 0){
+        data.forEach((x) => {
+            let urlDestroy = '{{ route("admin.destroy_bidang", ":id")}}';
+            urlDestroy = urlDestroy.replace(':id', x.id);
+            let ketuaHarian = (y) => {
+                    if(y){
+                        return y;
+                    }else{
+                        return '-';
+                    }
+                }
+            
+            tagBidangList += `
+            <tr>
+                <td>
+                    <div class="media flex-nowrap align-items-center"
+                            style="white-space: nowrap;">
+                        <div class="media-body">
+                            <div class="d-flex flex-column">
+                                <div class="js-lists-values-project h5"><strong>${x.name}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="media flex-nowrap align-items-center"
+                            style="white-space: nowrap;">
+                        <div class="media-body">
+                            <div class="d-flex flex-column">
+                                <div class="js-lists-values-project h5"><strong>${x.count}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="media flex-nowrap align-items-center"
+                            style="white-space: nowrap;">
+                        <div class="media-body">
+                            <div class="d-flex flex-column">
+                                <div class="js-lists-values-project h5"><strong>${ketuaHarian(x.ketua_harian)}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="button-list">
+                        <form method="POST" action="${urlDestroy}">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>`
+        })
+    }else{
+        tagBidangList += `
+        <tr>
+            <td>
+                <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>Tidak Ada Data</strong></div>
+                                </div>
+                            </div>
+                </div>
+            </td>
+        </tr>
+        `
+    }
+    divBidangList.innerHTML = tagBidangList
+</script>
+
 @endsection

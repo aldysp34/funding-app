@@ -63,4 +63,15 @@ class FileController extends Controller
 
         return redirect()->route('ketua-bidang.home')->with(['msg' => 'Berhasil Membatalkan Pengajuan!']);
     }
+
+    public function destroy($id){
+        $file = File::where('id', $id);
+        
+        if($file){
+            $file->delete();
+            return redirect()->route('admin.files')->with(['msg' => 'Berhasil Menghapus File']);
+        }
+
+        return redirect()->route('admin.files')->with(['errorMsg' => 'ID File Tidak Ditemukan']);
+    }
 }

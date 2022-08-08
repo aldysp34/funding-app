@@ -9,6 +9,10 @@ class Bidang extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     // One to Many User
     public function users(){
         return $this->hasMany('App\Models\User');
