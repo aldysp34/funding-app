@@ -17,4 +17,9 @@ class Bidang extends Model
     public function users(){
         return $this->hasMany('App\Models\User');
     }
+
+    // One to Many Kegiatan
+    public function kegiatan(){
+        return $this->hasMany('App\Models\Kegiaan');
+    }
 }

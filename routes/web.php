@@ -12,6 +12,7 @@ use App\Http\Controllers\SuratBayarController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BidangController;
+use App\Http\Controllers\KegiatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth', 'user-access:1'])->group(function () {
     Route::get('/ketua-bidang', [KetuaBidangController::class, 'index'])->name('ketua-bidang.home');
     Route::get('/ketua-bidang/upload_dokumen', [KetuaBidangController::class, 'upload_dokumen'])->name('ketua-bidang.upload_dokumen');
-    Route::post('/ketua-bidang/upload_dokumen', [FileController::class, 'store'])->name('ketua-bidang.store_dokumen');
+    Route::get('/ketua-bidang/dokumen/{id}', [KetuaBidangController::class, 'dokumen'])->name('ketua-bidang.dokumen');
+    Route::post('/ketua-bidang/upload', [FileController::class, 'store'])->name('ketua-bidang.store_dokumen');
     Route::get('/ketua-bidang/download_file/{filename}', [FileController::class, 'downloadFile'])->name('ketua-bidang.download');
     Route::get('/ketua-bidang/download_suratbayar/{filename}', [SuratBayarController::class, 'downloadFile'])->name('ketua-bidang.download_suratBayar');
     Route::get('/ketua-bidang/cancel/{id}', [FileController::class, 'cancelSubmit'])->name('ketua-bidang.cancel');
@@ -81,4 +83,6 @@ Route::middleware(['auth', 'user-access:5'])->group(function () {
     Route::post('/admin/hapus_bidang/{id}', [BidangController::class, 'destroy'])->name('admin.destroy_bidang');
     Route::post('/admin/hapus_user/{id}', [UserController::class, 'destroy'])->name('admin.destroy_user');
     Route::post('/admin/hapus_file/{id}', [FileController::class, 'destroy'])->name('admin.destroy_file');
+    Route::get('/admin/kegiatan', [AdminController::class, 'kegiatan'])->name('admin.kegiatan');
+    Route::post('/admin/add_kegiatan', [KegiatanController::class, 'store'])->name('admin.store_kegiatan');
 });

@@ -16,29 +16,37 @@ class KetuaHarianController extends Controller
         $proposal_need_approved = array();
         $proposal_approved = array();
         $proposal_rejected = array();
-
+        $jumlah = 0;
+        
         forEach($proposals as $proposal){
-            if($proposal->user->bidang->id == auth()->user()->bidang->id){
-                if($proposal->suratbayar && $proposal->lembarVerifikasi){
-                    if($proposal->ketuaHarian_approved == 0){
-                        $proposal->verifikator;
-                        array_push($proposal_need_approved, $proposal);
+            if($proposal->suratbayar && $proposal->lembarVerifikasi){
+                if($proposal->ketuaHarian_approved == 0){
+                    $proposal->verifikator;
+                    $proposal->kegiatan;
+                    array_push($proposal_need_approved, $proposal);
 
-                    }else if($proposal->ketuaHarian_approved == 1){
-                        $proposal->verifikator;
-                        array_push($proposal_approved, $proposal);
-                    }else{
-                        $proposal->verifikator;
-                        array_push($proposal_rejected, $proposal);
-                    }
+                }else if($proposal->ketuaHarian_approved == 1){
+                    $proposal->verifikator;
+                    $proposal->kegiatan;
+                    $jumlah += $proposal->kegiatan->budget;
+                    array_push($proposal_approved, $proposal);
+                }else{
+                    $proposal->verifikator;
+                    $proposal->kegiatan;
+                    array_push($proposal_rejected, $proposal);
                 }
             }
         }
+        
+        $count_proposal = count($proposal_approved);
+        $jumlah = number_format($jumlah, 2);
 
         return view('ketuaHarian.ketuaHarian_index', ['role' => 'Ketua Harian',
                                                     'proposal_need_approved' => json_encode($proposal_need_approved),
                                                     'proposal_approved' => json_encode($proposal_approved),
-                                                    'proposal_rejected' => json_encode($proposal_rejected)    
+                                                    'proposal_rejected' => json_encode($proposal_rejected),
+                                                    'count_proposal' => $count_proposal,
+                                                    'jumlah' => $jumlah   
                                                     ]);
     }
 

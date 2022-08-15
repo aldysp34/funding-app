@@ -10,8 +10,8 @@ use Illuminate\Http\UploadedFile;
 class LembarVerifikasiController extends Controller
 {
     public function store(StoreLembarVerifikasiRequest $request, $id, $data){
-        $filename = auth()->user()->bidang->name.'_lembar verifikasi_'.$data.'.'.$request->file->extension();
-        $filePath = strtolower('files/'.auth()->user()->bidang->name.'/lembar verifikasi');
+        $filename = $data.'_lembar verifikasi.'.$request->file->extension();
+        $filePath = strtolower('files/lembar verifikasi');
         $type = $request->file->getClientMimeType();
         $size = $request->file->getSize();
 
@@ -29,8 +29,8 @@ class LembarVerifikasiController extends Controller
     }
 
     public function downloadFile($filename){
-        $fileName = auth()->user()->bidang->name."_lembar verifikasi_".$filename.".pdf";
-        $file = public_path()."/files"."/".auth()->user()->bidang->name."/lembar verifikasi"."/".$fileName;
+        $fileName = $filename."_lembar verifikasi.pdf";
+        $file = public_path()."/files/lembar verifikasi/".$fileName;
 
         $headers = array(
             'Content-Type: application/pdf',

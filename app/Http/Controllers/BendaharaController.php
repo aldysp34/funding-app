@@ -17,21 +17,21 @@ class BendaharaController extends Controller
         $proposal_approved = array();
 
         forEach($proposals as $proposal){
-            if(($proposal->user->bidang->id == auth()->user()->bidang->id)){
-                if($proposal->verifikator_approved == 1 && $proposal->ketuaHarian_approved == 0){
-                    if($proposal->lembarVerifikasi){
-                        array_push($proposal_send_to_ketuaBidang, $proposal);
-                        $proposal->lembar_verifikasi;
-                        $proposal->verifikator;
-                        $proposal->suratbayar;
-                    }
-                }else if($proposal->verifikator_approved == 1 && $proposal->ketuaHarian_approved == 1){
+            if($proposal->verifikator_approved == 1 && $proposal->ketuaHarian_approved == 0){
+                if($proposal->lembarVerifikasi){
+                    array_push($proposal_send_to_ketuaBidang, $proposal);
                     $proposal->lembar_verifikasi;
                     $proposal->verifikator;
                     $proposal->suratbayar;
-                    $proposal->ketuaHarian;
-                    array_push($proposal_approved, $proposal);
+                    $proposal->kegiatan;
                 }
+            }else if($proposal->verifikator_approved == 1 && $proposal->ketuaHarian_approved == 1){
+                $proposal->lembar_verifikasi;
+                $proposal->verifikator;
+                $proposal->suratbayar;
+                $proposal->ketuaHarian;
+                $proposal->kegiatan;
+                array_push($proposal_approved, $proposal);
             }
         }
 

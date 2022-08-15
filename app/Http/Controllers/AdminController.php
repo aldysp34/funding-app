@@ -7,6 +7,8 @@ use App\Http\Requests\StoreBidangRequest;
 use App\Models\Bidang;
 use App\Models\User;
 use App\Models\File;
+use App\Models\Kegiatan;
+use App\Models\SatuanVolume;
 
 class AdminController extends Controller
 {
@@ -63,6 +65,23 @@ class AdminController extends Controller
         }
         return view('admin.admin_files', ['role' => 'Admin',
                                             'files' => json_encode($files)
+                                        ]);
+    }
+
+    public function kegiatan(){
+        $kegiatan = Kegiatan::all();
+        foreach($kegiatan as $x){
+            $x->bidang;
+            if($x->rincianBiaya){
+                $x->rincianBiaya;
+            }
+        }
+        $satuan = SatuanVolume::all();
+        $bidang = Bidang::all();
+        return view('admin.admin_kegiatan', ['role' => 'Admin',
+                                            'kegiatan' => json_encode($kegiatan),
+                                            'satuan' => $satuan,
+                                            'bidang' => $bidang                                 
                                         ]);
     }
 }

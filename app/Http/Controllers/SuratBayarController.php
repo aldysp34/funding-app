@@ -10,8 +10,8 @@ use Illuminate\Http\UploadedFile;
 class SuratBayarController extends Controller
 {
     public function store(StoreSuratBayarRequest $request, $id, $data){
-        $filename = auth()->user()->bidang->name.'_surat bayar_'.$data.'.'.$request->file->extension();
-        $filePath = strtolower('files/'.auth()->user()->bidang->name.'/surat bayar');
+        $filename = $data.'_surat bayar.'.$request->file->extension();
+        $filePath = strtolower('files/surat bayar');
         $type = $request->file->getClientMimeType();
         $size = $request->file->getSize();
         $path = $request->file->move($filePath, $filename);
@@ -27,8 +27,8 @@ class SuratBayarController extends Controller
     }
 
     public function downloadFile($filename){
-        $fileName = auth()->user()->bidang->name."_surat bayar_".$filename.".pdf";
-        $file = public_path()."/files"."/".auth()->user()->bidang->name."/surat bayar"."/".$fileName;
+        $fileName = $filename."_surat bayar.pdf";
+        $file = public_path()."/files/surat bayar/".$fileName;
 
         $headers = array(
             'Content-Type: application/pdf',

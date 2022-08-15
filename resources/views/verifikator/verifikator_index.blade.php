@@ -78,10 +78,16 @@
                         <th style="width: 100px;">
                             <a href="javascript:void(0)"
                                 class="sort"
+                                data-sort="js-lists-values-budget">Total Biaya</a>
+                        </th>
+
+                        <th style="width: 100px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
                                 data-sort="js-lists-values-budget">Diajukan Oleh</a>
                         </th>
 
-                        <th style="width: 48px;">
+                        <th style="width: 150px;">
                             <a href="javascript:void(0)"
                                 class="sort"
                                 data-sort="js-lists-values-budget">Pilihan</a>
@@ -129,7 +135,11 @@
                                 class="sort"
                                 data-sort="js-lists-values-project">Proposal</a>
                         </th>
-                        
+                        <th style="width: 100px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-budget">Total Biaya</a>
+                        </th>
                         <th style="width: 100px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -178,7 +188,11 @@
                                 class="sort"
                                 data-sort="js-lists-values-project">Proposal</a>
                         </th>
-                        
+                        <th style="width: 100px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-budget">Total Biaya</a>
+                        </th>
                         <th style="width: 100px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -223,10 +237,11 @@
         console.log(data)
         const firstDivProjects = document.getElementById('projects')
         let tagHTML = ''
+        let dollarUSLocale = Intl.NumberFormat('en-US');
         if(data.length != 0){
             data.forEach((x) => {
                 let urlDownload = '{{ route("verifikator.download", ":id")}}';
-                urlDownload = urlDownload.replace(':id', x.subject);
+                urlDownload = urlDownload.replace(':id', x.kegiatan.name);
                 let urlApprove = '{{ route("verifikator.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlApprove = urlApprove.replace('data_id', x.id);
                 urlApprove = urlApprove.replace('data_data', 1);
@@ -234,6 +249,8 @@
                 let urlReject = '{{ route("verifikator.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlReject = urlReject.replace('data_id', x.id);
                 urlReject = urlReject.replace('data_data', 2);
+
+                
     
                 tagHTML +=
                 `<tr>
@@ -242,18 +259,27 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <a class="js-lists-values-project h5" href="${urlDownload}"><strong>${x.subject}</strong></a>
+                                    <a class="js-lists-values-project h5" href="${urlDownload}"><strong>${x.kegiatan.name}</strong></a>
                                 </div>
                             </div>
                         </div>
-    
                     </td>
                     <td>
                         <div class="media flex-nowrap align-items-center"
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <div class="js-lists-values-project h5"><strong>${x.user.name}</strong></div>
+                                    <div class="js-lists-values-project h5"><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong></strong></div>
                                 </div>
                             </div>
                         </div>
@@ -302,14 +328,14 @@
         if(approvedData.length != 0){
             approvedData.forEach((x) => {
                 let urlApprovedDownload = '{{ route("verifikator.download", ":id")}}';
-                urlApprovedDownload = urlApprovedDownload.replace(':id', x.subject);
+                urlApprovedDownload = urlApprovedDownload.replace(':id', x.kegiatan.name);
 
                 let urlUploadLembarVerifikasi = '{{ route("verifikator.upload_lembarVerifikasi", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_id', x.id);
-                urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_data', x.subject);
+                urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_data', x.kegiatan.name);
 
                 let urlDownloadLembarVerifikasi = '{{ route("verifikator.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
 
                 if(x.lembar_verifikasi == null){
                     tagApprovedHTML +=
@@ -319,23 +345,32 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <a class="js-lists-values-project h5" href="${urlApprovedDownload}"><strong>${x.subject}</strong></a>
+                                        <a class="js-lists-values-project h5" href="${urlApprovedDownload}"><strong>${x.kegiatan.name}</strong></a>
                                     </div>
                                 </div>
                             </div>
-        
                         </td>
                         <td>
                             <div class="media flex-nowrap align-items-center"
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <div class="js-lists-values-project h5"><strong>${x.user.name}</strong></div>
+                                        <div class="js-lists-values-project h5"><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
                                     </div>
                                 </div>
                             </div>
-        
                         </td>
+                        <td>
+                            <div class="media flex-nowrap align-items-center"
+                                    style="white-space: nowrap;">
+                                <div class="media-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="js-lists-values-project h5"><strong></strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        
                         <td>
                             <div class="button-list">
                                 <a class="btn btn-accent" href="${urlApprovedDownload}">
@@ -362,7 +397,7 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <a class="js-lists-values-project h5" href="${urlApprovedDownload}"><strong>${x.subject}</strong></a>
+                                        <a class="js-lists-values-project h5" href="${urlApprovedDownload}"><strong>${x.kegiatan.name}</strong></a>
                                     </div>
                                 </div>
                             </div>
@@ -373,7 +408,17 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <div class="js-lists-values-project h5"><strong>${x.user.name}</strong></div>
+                                        <div class="js-lists-values-project h5"><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="media flex-nowrap align-items-center"
+                                    style="white-space: nowrap;">
+                                <div class="media-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="js-lists-values-project h5"><strong></strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +464,7 @@
         if(rejectedData.length != 0){
             rejectedData.forEach((x) => {
                 let urlRejectedDownload = '{{ route("verifikator.download", ":id")}}';
-                urlRejectedDownload = urlRejectedDownload.replace(':id', x.subject);
+                urlRejectedDownload = urlRejectedDownload.replace(':id', x.kegiatan.name);
                 tagRejectedHTML +=
                 `<tr>
                     <td>
@@ -427,7 +472,7 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <a class="js-lists-values-project h5" href="${urlRejectedDownload}"><strong>${x.subject}</strong></a>
+                                    <a class="js-lists-values-project h5" href="${urlRejectedDownload}"><strong>${x.kegiatan.name}</strong></a>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +483,17 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <div class="js-lists-values-project h5"><strong>${x.user.name}</strong></div>
+                                    <div class="js-lists-values-project h5"><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong></strong></div>
                                 </div>
                             </div>
                         </div>

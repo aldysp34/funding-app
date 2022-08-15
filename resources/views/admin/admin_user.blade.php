@@ -243,6 +243,16 @@
         </li>
     </ul>
 </div>
+<div class="sidebar-heading">
+    <ul class="sidebar-menu">
+        <li class="sidebar-menu-item">
+            <a href="{{route('admin.kegiatan')}}" class="sidebar-menu-button">
+                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">content_copy</span>
+                <span class="sidebar-menu-text">Kegiatan</span>
+            </a>
+        </li>
+    </ul>
+</div>
 @endsection
 
 @section('new_scripts')

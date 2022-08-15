@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreFileRequest extends FormRequest
+class StoreKegiatanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,11 @@ class StoreFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|mimes:pdf|max:5120'
-        ]; 
+            'name' => 'required',
+            'budget' => 'required|integer',
+            'volume_1' => 'required|integer',
+            'satuan_1' => 'required',
+            'harga_satuan' => 'required|integer'
+        ];
     }
 }

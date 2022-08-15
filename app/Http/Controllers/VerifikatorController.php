@@ -19,21 +19,17 @@ class VerifikatorController extends Controller
         $proposal_need_approved = array();
         $approvedProposal = array();
         $rejectedProposal = array();
-        $proposalsApproved = array();
-        
+
         forEach($proposals as $proposal){
-            if(($proposal->user->bidang->id == auth()->user()->bidang->id) && 
-                ($proposal->verifikator_approved == 0 && $proposal->ajukan_status == 1)){
-                array_push($proposal_need_approved, $proposal); 
-            }
-            else if(($proposal->user->bidang->id == auth()->user()->bidang->id) && 
-                ($proposal->verifikator_approved == 1)){
+            if($proposal->verifikator_approved == 0 && $proposal->ajukan_status == 1){
+                $proposal->kegiatan;
+                array_push($proposal_need_approved, $proposal);
+            }else if($proposal->verifikator_approved == 1){
                 $proposal->lembarVerifikasi;
+                $proposal->kegiatan;
                 array_push($approvedProposal, $proposal);
-                
-            }
-            else if(($proposal->user->bidang->id == auth()->user()->bidang->id) && 
-                ($proposal->verifikator_approved == 2)){
+            }else if($proposal->verifikator_approved == 2){
+                $proposal->kegiatan;
                 array_push($rejectedProposal, $proposal);
             }
         }
@@ -61,7 +57,7 @@ class VerifikatorController extends Controller
 
         if($data == 1){
             $msg = 'Berhasil Approve Proposal';
-            $file->status = 1;
+            $file->status = 3;
             $file->save();
         }else if($data == 2){
             $msg = 'Berhasil Reject Proposal';

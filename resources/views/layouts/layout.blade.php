@@ -3,6 +3,7 @@
     <head>
         <title>@yield('title')</title>
         @include('layouts.partials.head')
+        
     </head>
     
     <body class="layout-app layout-sticky-subnav has-drawer-opened">

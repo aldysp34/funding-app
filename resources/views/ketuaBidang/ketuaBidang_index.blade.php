@@ -195,10 +195,10 @@
         }
         data.forEach((x) => {
             let url = '{{ route("ketua-bidang.download", ":id")}}';
-            url = url.replace(':id', x.subject)
+            url = url.replace(':id', x.kegiatan.name)
 
             let urlDownloadSuratBayar = '{{ route("ketua-bidang.download_suratBayar", ":id")}}';
-            urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+            urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
             
             let urlCancelSubmit = '{{ route("ketua-bidang.cancel", ":id")}}';
             urlCancelSubmit = urlCancelSubmit.replace(':id', x.id);
@@ -211,7 +211,7 @@
                             style="white-space: nowrap;">
                         <div class="media-body">
                             <div class="d-flex flex-column">
-                                <a class="js-lists-values-project h5" href="${url}"><strong>${x.subject}</strong></a>
+                                <a class="js-lists-values-project h5" href="${url}"><strong>${x.kegiatan.name}</strong></a>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
 
         cancelData.forEach((x) => {
             let url = '{{ route("ketua-bidang.download", ":id")}}';
-            url = url.replace(':id', x.subject)
+            url = url.replace(':id', x.kegiatan.name)
 
             tagCancel += `
             <tr>
@@ -256,7 +256,7 @@
                             style="white-space: nowrap;">
                         <div class="media-body">
                             <div class="d-flex flex-column">
-                                <a class="js-lists-values-project h5" href="${url}"><strong>${x.subject}</strong></a>
+                                <a class="js-lists-values-project h5" href="${url}"><strong>${x.kegiatan.name}</strong></a>
                             </div>
                         </div>
                     </div>

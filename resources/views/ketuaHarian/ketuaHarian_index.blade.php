@@ -15,6 +15,47 @@
 
     
     @section('content-section')
+    <div class="row mb-lg-8pt">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body d-flex align-items-center">
+                    <div class="h2 mb-0 mr-3">{{$count_proposal}}</div>
+                    <div class="flex">
+                        <p class="mb-0"><strong>Proposal Yang di Approve</strong></p>
+                    </div>
+                    <i class="material-icons icon-48pt text-20 ml-2">content_copy</i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body d-flex align-items-center">
+                    <div class="h2 mb-0 mr-3">Rp. {{$jumlah}}</div>
+                    <div class="flex">
+                        <p class="mb-0"><strong>Jumlah Total Biaya yang di Approve</strong></p>
+                        
+                    </div>
+                    <i class="material-icons icon-48pt text-20 ml-2">attach_money</i>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body d-flex align-items-center">
+                    <div class="h2 mb-0 mr-3">8.3k</div>
+                    <div class="flex">
+                        <p class="mb-0"><strong>Visits</strong></p>
+                        <p class="text-50 mb-0 mt-n1 d-flex align-items-center">
+                            3.5%
+                            <i class="material-icons ml-4pt icon-16pt text-accent-red">keyboard_arrow_down</i>
+                        </p>
+                    </div>
+                    <i class="material-icons icon-48pt text-20 ml-2">person_outline</i>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
     <div class="card dashboard-area-tabs mb-32pt">
         <div class="card-header p-0 nav">
             <div class="row no-gutters"
@@ -52,6 +93,11 @@
                             <a href="javascript:void(0)"
                                 class="sort"
                                 data-sort="js-lists-values-status">Verifikator</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Anggaran</a>
                         </th>
                         
                         <th style="width: 48px;">
@@ -107,7 +153,11 @@
                                 class="sort"
                                 data-sort="js-lists-values-status">Verifikator</a>
                         </th>
-                        
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Anggaran</a>
+                        </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -161,7 +211,11 @@
                                 class="sort"
                                 data-sort="js-lists-values-status">Verifikator</a>
                         </th>
-                        
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Anggaran</a>
+                        </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -206,18 +260,19 @@
         const divProposalApproving = document.getElementById('proposalApproving');
         let dataProposalApproving = {!! $proposal_need_approved !!}
         let tagProposalApproving = ''
+        let dollarUS = Intl.NumberFormat('en-US');
         console.log(dataProposalApproving)
         if(dataProposalApproving.length != 0){
             dataProposalApproving.forEach((x) => {
                 
                 let urlDownloadProposal = '{{ route("ketua-harian.download", ":id")}}';
-                urlDownloadProposal = urlDownloadProposal.replace(':id', x.subject);
+                urlDownloadProposal = urlDownloadProposal.replace(':id', x.kegiatan.name);
 
                 let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
 
                 let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
 
                 let urlApprove = '{{ route("ketua-harian.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlApprove = urlApprove.replace('data_id', x.id);
@@ -234,7 +289,7 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <a class="js-lists-values-project h5" href="#"><strong>${x.subject}</strong></a>
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.name}</strong></a>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +300,11 @@
                             <div class="js-lists-values-project h5"><strong>${x.verifikator.name}</strong></div>
                         </div>
                     </td>
-                    
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="js-lists-values-project h5"><strong>Rp. ${dollarUS.format(x.kegiatan.budget)}</strong></div>
+                        </div>
+                    </td>
                     <td>
                         <div class="button-list">
                             <a type="button" class="btn btn-accent" href="${urlDownloadProposal}">
@@ -300,13 +359,13 @@
             dataProposalApproved.forEach((x) => {
                 
                 let urlDownloadProposal = '{{ route("ketua-harian.download", ":id")}}';
-                urlDownloadProposal = urlDownloadProposal.replace(':id', x.subject);
+                urlDownloadProposal = urlDownloadProposal.replace(':id', x.kegiatan.name);
 
                 let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
 
                 let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
 
                 let urlApprove = '{{ route("ketua-harian.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlApprove = urlApprove.replace('data_id', x.id);
@@ -323,7 +382,7 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <a class="js-lists-values-project h5" href="#"><strong>${x.subject}</strong></a>
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.name}</strong></a>
                                 </div>
                             </div>
                         </div>
@@ -334,7 +393,11 @@
                             <div class="js-lists-values-project h5"><strong>${x.verifikator.name}</strong></div>
                         </div>
                     </td>
-                    
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="js-lists-values-project h5"><strong>Rp. ${dollarUS.format(x.kegiatan.budget)}</strong></div>
+                        </div>
+                    </td>
                     <td>
                         <div class="button-list">
                             <a type="button" class="btn btn-accent" href="${urlDownloadProposal}">
@@ -379,13 +442,13 @@
             dataProposalRejected.forEach((x) => {
                 
                 let urlDownloadProposal = '{{ route("ketua-harian.download", ":id")}}';
-                urlDownloadProposal = urlDownloadProposal.replace(':id', x.subject);
+                urlDownloadProposal = urlDownloadProposal.replace(':id', x.kegiatan.name);
 
                 let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
 
                 let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
 
                 let urlApprove = '{{ route("ketua-harian.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlApprove = urlApprove.replace('data_id', x.id);
@@ -402,7 +465,7 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <a class="js-lists-values-project h5" href="#"><strong>${x.subject}</strong></a>
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.name}</strong></a>
                                 </div>
                             </div>
                         </div>
@@ -413,7 +476,11 @@
                             <div class="js-lists-values-project h5"><strong>${x.verifikator.name}</strong></div>
                         </div>
                     </td>
-                    
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="js-lists-values-project h5"><strong>Rp. ${dollarUS.format(x.kegiatan.budget)}</strong></div>
+                        </div>
+                    </td>
                     <td>
                         <div class="button-list">
                             <a type="button" class="btn btn-accent" href="${urlDownloadProposal}">

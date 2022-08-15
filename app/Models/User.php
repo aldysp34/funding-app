@@ -51,4 +51,8 @@ class User extends Authenticatable
     public function file(){
         return $this->hasMany('App\Models\File');
     }
+
+    public function kegiatan(){
+        return $this->hasOne('App\Models\Kegiatan');
+    }
 }

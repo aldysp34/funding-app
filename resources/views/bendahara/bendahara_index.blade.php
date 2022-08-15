@@ -13,6 +13,8 @@
     @section('bidang', auth()->user()->bidang->name)
 
     @section('content-section')
+
+    
     @if($errors->any())
         <div class="alert alert-warning mb-0"
                 role="alert">
@@ -70,10 +72,15 @@
             <table class="table mb-0 thead-border-top-0 table-nowrap">
                 <thead>
                     <tr>
-                    <th style="width: 150px;">
+                        <th style="width: 150px;">
                             <a href="javascript:void(0)"
                                 class="sort"
                                 data-sort="js-lists-values-project">Proposal</a>
+                        </th>
+                        <th style="width: 150px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-project">Total Biaya</a>
                         </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
@@ -140,6 +147,11 @@
                                 class="sort"
                                 data-sort="js-lists-values-project">Proposal</a>
                         </th>
+                        <th style="width: 150px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-project">Total Biaya</a>
+                        </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -193,22 +205,23 @@
     <script>
         const divProposalSend = document.getElementById('proposalSend')
         let data = {!! $proposal_send_to_ketuaBidang !!}
+        let dollarUSLocale = Intl.NumberFormat('en-US');
         console.log(data)
         let tagProposalSend = ''
         if(data.length != 0){
             data.forEach((x) => {
                 let urlProposalDownload = '{{ route("bendahara.download", ":id")}}';
-                urlProposalDownload = urlProposalDownload.replace(':id', x.subject);
+                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.name);
 
                 let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
 
                 let urlUploadSuratBayar = '{{ route("bendahara.upload_suratBayar", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlUploadSuratBayar = urlUploadSuratBayar.replace('data_id', x.id);
-                urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.subject);
+                urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.kegiatan.name);
 
                 let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
                 
                 if(x.suratbayar == null){
                     tagProposalSend +=
@@ -218,7 +231,7 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.subject}</strong></a>
+                                        <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.kegiatan.name}</strong></a>
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +242,17 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <div class="js-lists-values-project h5" ><strong>${x.user.name}</strong></div>
+                                        <div class="js-lists-values-project h5" ><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="media flex-nowrap align-items-center"
+                                    style="white-space: nowrap;">
+                                <div class="media-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="js-lists-values-project h5" ><strong></strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +294,7 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.subject}</strong></a>
+                                        <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.kegiatan.name}</strong></a>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +305,17 @@
                                     style="white-space: nowrap;">
                                 <div class="media-body">
                                     <div class="d-flex flex-column">
-                                        <div class="js-lists-values-project h5" ><strong>${x.user.name}</strong></div>
+                                        <div class="js-lists-values-project h5" ><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="media flex-nowrap align-items-center"
+                                    style="white-space: nowrap;">
+                                <div class="media-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="js-lists-values-project h5" ><strong></strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -336,17 +369,17 @@
         if(proposalApproved.length != 0){
             proposalApproved.forEach((x) => {
                 let urlProposalDownload = '{{ route("bendahara.download", ":id")}}';
-                urlProposalDownload = urlProposalDownload.replace(':id', x.subject);
+                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.name);
 
                 let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.subject);
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
 
                 let urlUploadSuratBayar = '{{ route("bendahara.upload_suratBayar", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlUploadSuratBayar = urlUploadSuratBayar.replace('data_id', x.id);
-                urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.subject);
+                urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.kegiatan.name);
 
                 let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.subject);
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
             
                 tagProposalApproved +=
                 `<tr>
@@ -355,18 +388,28 @@
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.subject}</strong></a>
+                                    <a class="js-lists-values-project h5" href="${urlProposalDownload}"><strong>${x.kegiatan.name}</strong></a>
                                 </div>
                             </div>
                         </div>
         
                     </td>
                     <td>
+                            <div class="media flex-nowrap align-items-center"
+                                    style="white-space: nowrap;">
+                                <div class="media-body">
+                                    <div class="d-flex flex-column">
+                                        <div class="js-lists-values-project h5" ><strong>Rp. ${dollarUSLocale.format(x.kegiatan.budget)}</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    <td>
                         <div class="media flex-nowrap align-items-center"
                                 style="white-space: nowrap;">
                             <div class="media-body">
                                 <div class="d-flex flex-column">
-                                    <div class="js-lists-values-project h5" ><strong>${x.user.name}</strong></div>
+                                    <div class="js-lists-values-project h5" ><strong></strong></div>
                                 </div>
                             </div>
                         </div>

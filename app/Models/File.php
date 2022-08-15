@@ -10,7 +10,6 @@ class File extends Model
     use HasFactory;
 
     protected $fillable = [
-        'subject',
         'filename',
         'type',
         'size',
@@ -18,9 +17,9 @@ class File extends Model
         'ajukan_status',
         'verifikator_approved',
         'ketuaHarian_approved',
-        'user_id',
         'verifikator_id',
-        'ketuaHarian_id'
+        'ketuaHarian_id',
+        'kegiatan_id'
     ];
 
     public function suratbayar(){
@@ -31,9 +30,10 @@ class File extends Model
         return $this->hasOne('App\Models\LembarVerifikasi');
     }
 
-    public function user(){
-        return $this->belongsTo('App\Models\User', 'user_id');
+    public function rincianBiaya(){
+        return $this->hasOne('App\Models\RincianBiaya');
     }
+
 
     public function verifikator(){
         return $this->belongsTo('App\Models\User', 'verifikator_id');
@@ -41,5 +41,8 @@ class File extends Model
 
     public function ketuaHarian(){
         return $this->belongsTo('App\Models\User', 'ketuaHarian_id');
+    }
+    public function kegiatan(){
+        return $this->belongsTo('App\Models\Kegiatan');
     }
 }
