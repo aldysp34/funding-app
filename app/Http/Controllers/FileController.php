@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Models\RincianBiaya;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreFileRequest;
+use App\Models\Kegiatan;
 
 class FileController extends Controller
 {
@@ -15,46 +16,9 @@ class FileController extends Controller
         return ($volume_1*$volume_2*$volume_3*$harga_satuan);
     }
 
-    // public function store(StoreFileRequest $request){
-    //     $subject = $request->input('name');
-    //     $filename = auth()->user()->bidang->name.'_Proposal_'.$subject.'.'.$request->file->extension();
-    //     $filename = strtolower($filename);
-    //     $type = $request->file->getClientMimeType();
-    //     $size = $request->file->getSize();
-
-    //     $filePath = strtolower('files/'.auth()->user()->bidang->name.'/proposal');
-
-    //     $path = $request->file->move($filePath, $filename);
-    //     $fileCreate = File::create([
-    //         'filename' => $filename,
-    //         'type' => $type,
-    //         'size' => $size,
-    //         'path' => $path,
-    //         'status' => 3,
-    //         'ajukan_status' => 1,
-    //         'verifikator_approved' => 0,
-    //         'ketuaHarian_approved' => 0,
-    //         'kegiatan_id' => auth()->user()->kegiatan->id,
-    //     ]);
-
-    //     $rincianBiaya = array();
-    //     for($i=1;$i<4;$i++){
-    //         $rincianBiaya['volume_'.$i] = $request->input('volume_'.$i);
-    //         $rincianBiaya['satuan_'.$i] = $request->input('satuan_'.$i);
-    //     }
-    //     $rincianBiaya['harga_satuan'] = $request->input('harga_satuan');
-    //     $rincianBiaya['jumlah'] = $request->input('jumlah');
-
-    //     $rincianBiayaCreate = RincianBiaya::create($rincianBiaya);
-
-    //     if($fileCreate && $rincianBiayaCreate){
-    //         return redirect()->route('ketua-bidang.upload_dokumen')->with(['msg' => 'Berhasil Input Data Baru']);
-    //     }
-        
-    //     return redirect()->route('ketua-bidang.upload_dokumen')->with(['errorMsg' => 'Oops Terjadi Kesalahan']);
-    // }
     public function store(StoreFileRequest $request){
-        $filename = $request->input('name').'_Proposal.'.$request->file->extension();
+        $kegiatan = Kegiatan::where('id', $request->input('kegiatan_id'))->first();
+        $filename = $kegiatan->bidang->name.'_'.$request->input('name').'_Proposal.'.$request->file->extension();
         $filename = strtolower($filename);
 
         $filePath = strtolower('files/proposal');
@@ -89,7 +53,7 @@ class FileController extends Controller
     }
 
     public function downloadFile($filename){
-        $fileName = $filename."_proposal.pdf";
+        $fileName = auth()->user()->bidang->name.'_'.$filename."_proposal.pdf";
         $file = public_path()."/files/proposal/".$fileName;
 
         $headers = array(

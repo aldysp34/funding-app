@@ -31,7 +31,7 @@ use App\Http\Controllers\KegiatanController;
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 /* Ketua Bidang Routes List */

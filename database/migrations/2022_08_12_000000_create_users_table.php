@@ -20,10 +20,11 @@ return new class extends Migration
             $table->tinyInteger('user_access');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->UnsignedBigInteger('bidang_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreignId('bidang_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreign('bidang_id')->references('id')->on('bidangs')->onDelete('cascade');
         });
     }
 
