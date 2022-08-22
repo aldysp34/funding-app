@@ -88,11 +88,15 @@
                             class="sort"
                             data-sort="js-lists-values-budget">Nama Kegiatan</a>
                     </th>
-
                     <th style="width: 100px;">
                         <a href="javascript:void(0)"
                             class="sort"
                             data-sort="js-lists-values-budget">Bidang</a>
+                    </th>
+                    <th style="width: 100px;">
+                        <a href="javascript:void(0)"
+                            class="sort"
+                            data-sort="js-lists-values-budget">Kategori</a>
                     </th>
                     <th style="width: 100px;">
                         <a href="javascript:void(0)"
@@ -175,13 +179,24 @@
                     @csrf
                     <div class="form-group">
                         <label for="bidang" class="form-label">Bidang</label>
-                        <select id=""
+                        <select id="bidang"
                                 name="bidang"
                                 data-toggle="select"
                                 class="form-control">
+                                <option>-</option>
                             @foreach($bidang as $x)
                                 <option value="{{ $x->id }}">{{ $x->name }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="kategori" class="form-label">Kategori</label>
+                        <select id="kategori"
+                                name="kategori"
+                                data-toggle="select"
+                                class="form-control">
+                                <option>-</option>
+                            
                         </select>
                     </div>
                     <div class="form-group">
@@ -474,7 +489,35 @@
         jumlah.value = jum
     }
 
+    const bidang = document.getElementById('bidang')
+    bidang.addEventListener("change", function(){
+        let id = $("#bidang").val();
+        let url = "{{route('admin.get_kategori', ':id')}}"
+        $('#kategori').find('option').remove().end().append('<option>-</option>')
+        url = url.replace(':id', id)
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(data){
+                let kategori = document.getElementById('kategori');
+                data = JSON.parse(data)
+                console.log(data)
+                data.forEach((x) => {
+                    optionText = x.name;
+                    optionValue = x.id
+                    $("#kategori").append(`<option value="${optionValue}">${optionText}</option>`)
+                })
+            }
+        })
+    })
+
     
+    // function get_kategori(e){
+    //     
+    //     $.ajax({
+    //         url: 
+    //     })
+    // }
 
 </script>
 

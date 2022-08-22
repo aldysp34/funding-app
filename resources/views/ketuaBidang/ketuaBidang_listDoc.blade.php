@@ -65,6 +65,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kegiatan</th>
+                    <th>Kategori</th>
                     <th>Bidang</th>
                     <th>Volume 1</th>
                     <th>Satuan 1</th>
@@ -126,6 +127,7 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {data:'name', name:'name'},
+                    {data:'kategori', name:'kegiatan->name'},
                     {data:'bidang', name:'bidang->name'},
                     {data:'volume 1', name:'rincianBiaya->volume_1'},
                     {data:'satuan 1', name:'rincianBiaya->satuan_1'},
@@ -144,48 +146,48 @@
             document.getElementById('filename').innerHTML = data[2]
         }
 
-        const jumlah = document.getElementById('jumlahInput');
-        const hargaSatuan = document.getElementById('hargaSatuan');
-        const volume_1 = document.getElementById('volume_1');
-        const volume_2 = document.getElementById('volume_2');
-        const volume_3 = document.getElementById('volume_3');
+        // const jumlah = document.getElementById('jumlahInput');
+        // const hargaSatuan = document.getElementById('hargaSatuan');
+        // const volume_1 = document.getElementById('volume_1');
+        // const volume_2 = document.getElementById('volume_2');
+        // const volume_3 = document.getElementById('volume_3');
 
-        volume_1.addEventListener('keyup', sum);
-        volume_2.addEventListener('keyup', sum);
-        volume_3.addEventListener('keyup', sum);
-        hargaSatuan.addEventListener('keyup', sum);
-        function sum(e){
-            const jum = ($('#volume_1').val())*($('#volume_2').val())*($('#volume_3').val())*($('#hargaSatuan').val());
+        // volume_1.addEventListener('keyup', sum);
+        // volume_2.addEventListener('keyup', sum);
+        // volume_3.addEventListener('keyup', sum);
+        // hargaSatuan.addEventListener('keyup', sum);
+        // function sum(e){
+        //     const jum = ($('#volume_1').val())*($('#volume_2').val())*($('#volume_3').val())*($('#hargaSatuan').val());
 
-            jumlah.value = jum
-        }
+        //     jumlah.value = jum
+        // }
 
-        const kegiatanName = document.getElementById('name');
-        kegiatanName.addEventListener('change', getData);
-        function getData(e){
-            let kegiatanData = ''
-            console.log(kegiatanData);
-            console.log(kegiatanName.value);
-            kegiatanData.forEach((x) => {
-                if(x.name == kegiatanName.value){
-                    const budget = document.getElementById('budget').value = x.budget
+        // const kegiatanName = document.getElementById('name');
+        // kegiatanName.addEventListener('change', getData);
+        // function getData(e){
+        //     let kegiatanData = ''
+        //     console.log(kegiatanData);
+        //     console.log(kegiatanName.value);
+        //     kegiatanData.forEach((x) => {
+        //         if(x.name == kegiatanName.value){
+        //             const budget = document.getElementById('budget').value = x.budget
 
-                    const option_1 = document.getElementById('option_1');
-                    option_1.value = x.rincian_biaya.satuan_1 ?? '-'
-                    option_1.text = x.rincian_biaya.satuan_1 ?? '-'
+        //             const option_1 = document.getElementById('option_1');
+        //             option_1.value = x.rincian_biaya.satuan_1 ?? '-'
+        //             option_1.text = x.rincian_biaya.satuan_1 ?? '-'
 
-                    const option_2 = document.getElementById('option_2');
-                    option_2.value = x.rincian_biaya.satuan_2 ?? '-'
-                    option_2.text = x.rincian_biaya.satuan_2 ?? '-'
+        //             const option_2 = document.getElementById('option_2');
+        //             option_2.value = x.rincian_biaya.satuan_2 ?? '-'
+        //             option_2.text = x.rincian_biaya.satuan_2 ?? '-'
 
-                    const option_3 = document.getElementById('option_3');
-                    option_3.value = x.rincian_biaya.satuan_3 ?? '-'
-                    option_3.text = x.rincian_biaya.satuan_3 ?? '-'
+        //             const option_3 = document.getElementById('option_3');
+        //             option_3.value = x.rincian_biaya.satuan_3 ?? '-'
+        //             option_3.text = x.rincian_biaya.satuan_3 ?? '-'
 
-                    const hargaSatuan = document.getElementById('hargaSatuan').value = x.rincian_biaya.harga_satuan
-                }
-            })
-        }
+        //             const hargaSatuan = document.getElementById('hargaSatuan').value = x.rincian_biaya.harga_satuan
+        //         }
+        //     })
+        // }
 
 
 

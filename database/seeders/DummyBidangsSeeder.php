@@ -17,10 +17,10 @@ class DummyBidangsSeeder extends Seeder
     {
         $bidangData = [
             [
-                'name' => 'Honorarium Pelaksana Kegiatan'
+                'name' => 'Administrasi dan Kesekretariatan'
             ],
             [
-                'name' => 'Honorarium Tim Asistensi NPCI/DISPORA PROVINSI'
+                'name' => 'Hukum'
             ],
         ];
 

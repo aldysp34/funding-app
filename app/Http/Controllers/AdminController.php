@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\File;
 use App\Models\Kegiatan;
 use App\Models\SatuanVolume;
+use App\Models\KategoriKegiatan;
 
 class AdminController extends Controller
 {
@@ -78,10 +79,18 @@ class AdminController extends Controller
         }
         $satuan = SatuanVolume::all();
         $bidang = Bidang::all();
+        $kategori_kegiatan = KategoriKegiatan::all();
         return view('admin.admin_kegiatan', ['role' => 'Admin',
                                             'kegiatan' => json_encode($kegiatan),
                                             'satuan' => $satuan,
-                                            'bidang' => $bidang                                 
+                                            'bidang' => $bidang,
+                                            'kategori' => $kategori_kegiatan                      
                                         ]);
+    }
+
+    public function list_kategori($id){
+        $kategori = KategoriKegiatan::where('bidang_id', '=', $id)->get();
+        // dd($kategori);
+        echo json_encode($kategori);
     }
 }

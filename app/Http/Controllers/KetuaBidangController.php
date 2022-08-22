@@ -26,8 +26,10 @@ class KetuaBidangController extends Controller
         foreach($proposal as $x){
             if($x->ajukan_status == 1){
                 array_push($proposal_submit, $x);
+                $x->kegiatan->kategori->bidang->name;
             }else{
                 array_push($proposal_cancel, $x);
+                $x->kegiatan->kategori->bidang->name;
             }
         }
         return view('ketuaBidang.ketuaBidang_index', ['role' => 'Ketua Bidang',
@@ -38,10 +40,16 @@ class KetuaBidangController extends Controller
 
     public function upload_dokumen(Request $request){
         if($request->ajax()){
-            $kegiatan = Kegiatan::with('bidang')->with('rincianBiaya');
+            $kegiatan = Kegiatan::where('bidang_id', auth()->user()->bidang->id)
+                            ->with('bidang')
+                            ->with('rincianBiaya')
+                            ->with('kategori');
             
             return DataTables::of($kegiatan)
                         ->addIndexColumn()
+                        ->editColumn('kategori', function ($kegiatan){
+                            return $kegiatan->kategori->name;
+                        })
                         ->editColumn('bidang', function ($kegiatan){
                             return $kegiatan->bidang->name;
                         })

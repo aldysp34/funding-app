@@ -13,8 +13,13 @@ class Kegiatan extends Model
         'name',
         'budget',
         'bidang_id',
-        'ketuaBidang_id'
+        'ketuaBidang_id',
+        'kategori_id'
     ];
+
+    public function kategori(){
+        return $this->belongsTo('App\Models\KategoriKegiatan');
+    }
 
     public function bidang(){
         return $this->belongsTo('App\Models\Bidang');

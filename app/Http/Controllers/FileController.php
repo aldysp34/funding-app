@@ -18,10 +18,10 @@ class FileController extends Controller
 
     public function store(StoreFileRequest $request){
         $kegiatan = Kegiatan::where('id', $request->input('kegiatan_id'))->first();
-        $filename = $kegiatan->bidang->name.'_'.$request->input('name').'_Proposal.'.$request->file->extension();
+        $filename = $kegiatan->bidang->name.'_'.$kegiatan->kategori->name.'_'.$request->input('name').'_proposal.'.$request->file->extension();
         $filename = strtolower($filename);
 
-        $filePath = strtolower('files/proposal');
+        $filePath = strtolower('files/'.$kegiatan->bidang->name.'/'.$kegiatan->kategori->name.'/proposal');
         $type = $request->file->getClientMimeType();
         $size = $request->file->getSize();
         $path = $request->file->move($filePath, $filename);
@@ -52,15 +52,15 @@ class FileController extends Controller
         return redirect()->route('ketua-bidang.upload_dokumen')->with(['msg' => 'Berhasil Upload Proposal']);
     }
 
-    public function downloadFile($filename){
-        $fileName = auth()->user()->bidang->name.'_'.$filename."_proposal.pdf";
-        $file = public_path()."/files/proposal/".$fileName;
-
+    public function downloadFile($bidang, $kategori, $filename){
+        $fname = strtolower($filename);
+        $filepath = strtolower("/files"."/".$bidang."/".$kategori."/proposal"."/".$fname);
+        $file = public_path().$filepath;
         $headers = array(
             'Content-Type: application/pdf',
-          );
+        );
         if(file_exists($file)){
-            return \Response::download($file, $fileName, $headers);
+            return \Response::download($file, $fname, $headers);
         }
         else{
             abort(404);

@@ -23,16 +23,19 @@ class KetuaHarianController extends Controller
                 if($proposal->ketuaHarian_approved == 0){
                     $proposal->verifikator;
                     $proposal->kegiatan;
+                    $proposal->kegiatan->kategori->bidang->name;
                     array_push($proposal_need_approved, $proposal);
 
                 }else if($proposal->ketuaHarian_approved == 1){
                     $proposal->verifikator;
                     $proposal->kegiatan;
+                    $proposal->kegiatan->kategori->bidang->name;
                     $jumlah += $proposal->kegiatan->budget;
                     array_push($proposal_approved, $proposal);
                 }else{
                     $proposal->verifikator;
                     $proposal->kegiatan;
+                    $proposal->kegiatan->kategori->bidang->name;
                     array_push($proposal_rejected, $proposal);
                 }
             }

@@ -23,13 +23,16 @@ class VerifikatorController extends Controller
         forEach($proposals as $proposal){
             if($proposal->verifikator_approved == 0 && $proposal->ajukan_status == 1){
                 $proposal->kegiatan;
+                $proposal->kegiatan->kategori->bidang->name;
                 array_push($proposal_need_approved, $proposal);
             }else if($proposal->verifikator_approved == 1){
                 $proposal->lembarVerifikasi;
                 $proposal->kegiatan;
+                $proposal->kegiatan->kategori->bidang->name;
                 array_push($approvedProposal, $proposal);
             }else if($proposal->verifikator_approved == 2){
                 $proposal->kegiatan;
+                $proposal->kegiatan->kategori->bidang->name;
                 array_push($rejectedProposal, $proposal);
             }
         }

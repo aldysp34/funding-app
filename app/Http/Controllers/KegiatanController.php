@@ -40,7 +40,8 @@ class KegiatanController extends Controller
         $createKegiatan = Kegiatan::create([
             'bidang_id' => $request->input('bidang'),
             'name' => $request->input('name'),
-            'budget' => $request->input('budget')
+            'budget' => $request->input('budget'),
+            'kategori_id' => $request->input('kategori')
         ]);
 
         $rincianBiaya = array();

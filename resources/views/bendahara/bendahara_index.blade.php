@@ -210,18 +210,32 @@
         let tagProposalSend = ''
         if(data.length != 0){
             data.forEach((x) => {
-                let urlProposalDownload = '{{ route("bendahara.download", ":id")}}';
-                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.name);
+                
 
-                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
+                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
+                console.log(lembarverifikasi)
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+
+                let urlProposalDownload = '{{ route("bendahara.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.kategori.bidang.name)
+                urlProposalDownload = urlProposalDownload.replace(':d1', x.kegiatan.kategori.name)
+                urlProposalDownload = urlProposalDownload.replace(':d2', x.filename)
+
+                 
 
                 let urlUploadSuratBayar = '{{ route("bendahara.upload_suratBayar", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlUploadSuratBayar = urlUploadSuratBayar.replace('data_id', x.id);
                 urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.kegiatan.name);
 
-                let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
+                let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+                let suratbayar = x.filename.replace('proposal', 'surat bayar')
+                console.log(suratbayar)
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.kategori.bidang.name)
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':d1', x.kegiatan.kategori.name)
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':d2', suratbayar)
                 
                 if(x.suratbayar == null){
                     tagProposalSend +=
@@ -368,18 +382,30 @@
         let tagProposalApproved = ''
         if(proposalApproved.length != 0){
             proposalApproved.forEach((x) => {
-                let urlProposalDownload = '{{ route("bendahara.download", ":id")}}';
-                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.name);
+                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
+                console.log(lembarverifikasi)
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
 
-                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ":id")}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.name);
+                let urlProposalDownload = '{{ route("bendahara.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.kategori.bidang.name)
+                urlProposalDownload = urlProposalDownload.replace(':d1', x.kegiatan.kategori.name)
+                urlProposalDownload = urlProposalDownload.replace(':d2', x.filename)
+
+                 
 
                 let urlUploadSuratBayar = '{{ route("bendahara.upload_suratBayar", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlUploadSuratBayar = urlUploadSuratBayar.replace('data_id', x.id);
                 urlUploadSuratBayar = urlUploadSuratBayar.replace('data_data', x.kegiatan.name);
 
-                let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ":id")}}';
-                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
+                let urlDownloadSuratBayar = '{{ route("bendahara.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+                let suratbayar = x.filename.replace('proposal', 'surat bayar')
+                console.log(suratbayar)
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.kategori.bidang.name)
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':d1', x.kegiatan.kategori.name)
+                urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':d2', suratbayar)
             
                 tagProposalApproved +=
                 `<tr>

@@ -194,11 +194,15 @@
             }
         }
         data.forEach((x) => {
-            let url = '{{ route("ketua-bidang.download", ":id")}}';
-            url = url.replace(':id', x.kegiatan.name)
+            let url = '{{ route("ketua-bidang.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+            url = url.replace(':id', x.kegiatan.kategori.bidang.name)
+            url = url.replace(':d1', x.kegiatan.kategori.name)
+            url = url.replace(':d2', x.filename)
 
-            let urlDownloadSuratBayar = '{{ route("ketua-bidang.download_suratBayar", ":id")}}';
-            urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.name);
+            let urlDownloadSuratBayar = '{{ route("ketua-bidang.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+            urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.kategori.bidang.name)
+            urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':d1', x.kegiatan.kategori.name)
+            urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':d2', x.filename)
             
             let urlCancelSubmit = '{{ route("ketua-bidang.cancel", ":id")}}';
             urlCancelSubmit = urlCancelSubmit.replace(':id', x.id);
@@ -246,8 +250,10 @@
         let tagCancel = '';
 
         cancelData.forEach((x) => {
-            let url = '{{ route("ketua-bidang.download", ":id")}}';
-            url = url.replace(':id', x.kegiatan.name)
+            let url = '{{ route("ketua-bidang.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
+            url = url.replace(':id', x.kegiatan.kategori.bidang.name)
+            url = url.replace(':d1', x.kegiatan.kategori.name)
+            url = url.replace(':d2', x.filename)
 
             tagCancel += `
             <tr>
