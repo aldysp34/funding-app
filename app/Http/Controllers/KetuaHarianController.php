@@ -19,7 +19,7 @@ class KetuaHarianController extends Controller
         $jumlah = 0;
         
         forEach($proposals as $proposal){
-            if($proposal->suratbayar && $proposal->lembarVerifikasi){
+            if($proposal->lembarVerifikasi){
                 if($proposal->ketuaHarian_approved == 0){
                     $proposal->verifikator;
                     $proposal->kegiatan;

@@ -22,28 +22,26 @@ class LembarVerifikasiController extends Controller
 
         $path = $request->file->move($filePath, $filename);
 
-        LembarVerifikasi::create([
+        $upload = LembarVerifikasi::create([
             'filename' => $filename,
             'type' => $type,
             'size' => $size,
-            'file_id' => $id
+            'file_id' => $id,
+            'folder_path' => $path
         ]);
         
 
         return redirect()->route('verifikator.home')->with(['msg' => 'Dokumen Berhasil Diupload']);
     }
 
-    public function downloadFile($bidang, $kategori, $filename){
-        $fname = strtolower($filename);
-        $filepath = strtolower("/files"."/".$bidang."/".$kategori."/lembar verifikasi"."/".$fname);
-        $file = public_path().$filepath;
-        $headers = array(
-            'Content-Type: application/pdf',
-        );
-        if(file_exists($file)){
-            return \Response::download($file, $fname, $headers);
-        }
-        else{
+    public function downloadFile($id){
+        $file = LembarVerifikasi::where('id', $id)->first();
+        $filepath = public_path().'/'.$file->folder_path;
+
+        // dd($file->folder_path);
+        if(file_exists($filepath)){
+            return \Response::download($filepath);
+        }else{
             abort(404);
         }
     }

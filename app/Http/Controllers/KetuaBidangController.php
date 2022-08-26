@@ -53,23 +53,8 @@ class KetuaBidangController extends Controller
                         ->editColumn('bidang', function ($kegiatan){
                             return $kegiatan->bidang->name;
                         })
-                        ->editColumn('volume 1', function ($kegiatan){
-                            return $kegiatan->rincianBiaya->volume_1;
-                        })
-                        ->editColumn('satuan 1', function ($kegiatan){
-                            return $kegiatan->rincianBiaya->satuan_1;
-                        })
-                        ->editColumn('volume 2', function ($kegiatan){
-                            return $kegiatan->rincianBiaya->volume_2;
-                        })
-                        ->editColumn('satuan 2', function ($kegiatan){
-                            return $kegiatan->rincianBiaya->satuan_2;
-                        })
-                        ->editColumn('volume 3', function ($kegiatan){
-                            return $kegiatan->rincianBiaya->volume_3;
-                        })
-                        ->editColumn('satuan 3', function ($kegiatan){
-                            return $kegiatan->rincianBiaya->satuan_3;
+                        ->editColumn('anggaran', function ($kegiatan){
+                            return $kegiatan->budget;
                         })
                         ->addColumn('action', function($row){
        
@@ -77,6 +62,12 @@ class KetuaBidangController extends Controller
       
                             return $btn;
                         })
+                        ->removeColumn('volume 1')
+                        ->removeColumn('satuan 1')
+                        ->removeColumn('volume 2')
+                        ->removeColumn('satuan 2')
+                        ->removeColumn('volume 3')
+                        ->removeColumn('satuan 3')
                         ->rawColumns(['action'])
                         ->make(true);
                     
@@ -87,6 +78,8 @@ class KetuaBidangController extends Controller
     public function dokumen($id){
         $kegiatan = Kegiatan::where('id', $id)->first();
         $kegiatan->rincianBiaya;
+        $kegiatan->kategori;
+        $kegiatan->bidang;
         return view('ketuaBidang.ketuaBidang_uploadDoc', ['role' => 'KetuaBidang', 'kegiatan' => $kegiatan]);
     }
 

@@ -14,7 +14,8 @@ class LembarVerifikasi extends Model
         'filename',
         'type',
         'size',
-        'file_id'
+        'file_id',
+        'folder_path'
     ];
 
     public function file(){

@@ -67,12 +67,7 @@
                     <th>Nama Kegiatan</th>
                     <th>Kategori</th>
                     <th>Bidang</th>
-                    <th>Volume 1</th>
-                    <th>Satuan 1</th>
-                    <th>Volume 2</th>
-                    <th>Satuan 2</th>
-                    <th>Volume 3</th>
-                    <th>Satuan 3</th>
+                    <th>Anggaran</th>
                     <th width="100px">Action</th>
                 </tr>
             </thead>
@@ -129,12 +124,7 @@
                     {data:'name', name:'name'},
                     {data:'kategori', name:'kegiatan->name'},
                     {data:'bidang', name:'bidang->name'},
-                    {data:'volume 1', name:'rincianBiaya->volume_1'},
-                    {data:'satuan 1', name:'rincianBiaya->satuan_1'},
-                    {data:'volume 2', name:'rincianBiaya->volume_2'},
-                    {data:'satuan 2', name:'rincianBiaya->satuan_2'},
-                    {data:'volume 3', name:'rincianBiaya->volume_3'},
-                    {data:'satuan 3', name:'rincianBiaya->satuan_3'},
+                    {data:'anggaran', name:'kegiatan->budget'},
                     {data:'action', name:'action', orderable:false, searchable:false}
                 ]
             })

@@ -28,74 +28,18 @@
             </div>
         </div>
     </div>
-        <form action="{{ route('ketua-bidang.store_dokumen') }}"
-                class="col-md-5 p-0 mx-auto" method="POST" enctype="multipart/form-data">
-        @csrf
+        <form action="{{ route('ketua-bidang.store_dokumen') }}" class="col-md-5 p-0 mx-auto" method="POST" enctype="multipart/form-data">
+            @csrf
             <input type="text" name="kegiatan_id" value="{{$kegiatan->id}}" style="display:none">
             <div class="form-group">
-                <label class="form-label"
-                        for="name">Nama Kegiatan</label>
-                <select id="name"
-                    name="name"
-                    data-toggle="select"
-                    class="form-control">
-                    <option value="{{ $kegiatan->name }}">{{ $kegiatan->name }}</option>
+                <label for="name" class="form-label">Nama Kegiatan</label>
+                <select name="name" id="name" class="form-control" data-toggle="select">
+                    <option value="{{$kegiatan->name}}">{{$kegiatan->name}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="budget" class="form-label">Anggaran</label>
                 <input type="number" name="budget" id="budget" required autofocus placeholder="Volume..." value="{{ $kegiatan->budget }}" readonly="readonly">
-            </div>
-            <div class="form-group">
-                <label for="volume_1" class="form-label">Volume 1</label>
-                <input type="number" name="volume_1" id="volume_1" required autofocus placeholder="Volume..." value='1'>
-                
-            </div>
-            <div class="form-group">
-                <label class="form-label"
-                        for="satuan_1">Satuan</label>
-                <select id=""
-                        name="satuan_1"
-                        data-toggle="select"
-                        class="form-control"
-                        readonly="readonly">
-                        <option id="option_1" value="{{ $kegiatan->rincianBiaya->satuan_1 }}">{{ $kegiatan->rincianBiaya->satuan_1 }}</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="volume_2" class="form-label">Volume 2</label>
-                <input type="number" name="volume_2" id="volume_2" required autofocus placeholder="Volume..." value='1'>
-            </div>
-            <div class="form-group">
-                <label for="satuan_2" class="form-label">Satuan</label>
-                <select name="satuan_2" id="satuan_2" class="form-control" data-toggle="select" readonly="readonly">
-                    <option id="option_2" value="{{ $kegiatan->rincianBiaya->satuan_2 }}">{{ $kegiatan->rincianBiaya->satuan_2 }}</option>
-                    
-                </select>   
-            </div>
-            <div class="form-group">
-                <label for="volume_3" class="form-label">Volume 3</label>
-                <input type="number" name="volume_3" id="volume_3" required autofocus placeholder="Volume..." value='1'> 
-            </div>
-            <div class="form-group">
-                <label class="form-label"
-                        for="satuan_3">Satuan</label>
-                <select id="satuan_3"
-                        name="satuan_3"
-                        data-toggle="select"
-                        class="form-control"
-                        readonly="readonly">
-                        <option id="option_3" value="{{ $kegiatan->rincianBiaya->satuan_3 }}">{{$kegiatan->rincianBiaya->satuan_3}}</option>
-                    
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="harga_satuan" class="form-label">Harga Satuan</label>
-                <input type="text" name="harga_satuan" id="hargaSatuan" readonly="readonly" value="{{ $kegiatan->rincianBiaya->harga_satuan }}">
-            </div>
-            <div class="form-group">
-                <label for="jumlah" class="form-label">Jumlah</label>
-                <input type="text" name="jumlah" id="jumlahInput" readonly="readonly" />
             </div>
             <div class="form-group m-0">
                 <div class="custom-file">
@@ -107,11 +51,9 @@
                 </div>
             </div>
             <br>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Tambahkan</button>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            
-            
         </form>
     
     @endsection

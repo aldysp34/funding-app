@@ -264,17 +264,12 @@
         console.log(dataProposalApproving)
         if(dataProposalApproving.length != 0){
             dataProposalApproving.forEach((x) => {
-                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
-                console.log(lembarverifikasi)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+                
+                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ["id"=>":id"])}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
 
-                let urlDownloadProposal = '{{ route("ketua-harian.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlDownloadProposal = urlDownloadProposal.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadProposal = urlDownloadProposal.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadProposal = urlDownloadProposal.replace(':d2', x.filename)
+                let urlDownloadProposal = '{{ route("ketua-harian.download", ["id" => ":id"])}}';
+                urlDownloadProposal = urlDownloadProposal.replace(":id", x.id)
 
 
                 let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
@@ -328,10 +323,7 @@
                                 <i class="material-icons icon--left">launch</i>
                                 Download Lembar Verifikasi
                             </a>
-                            <a type="button" class="btn btn-success" href="${urlDownloadSuratBayar}">
-                                <i class="material-icons icon--left">launch</i>
-                                Download Surat Bayar
-                            </a>
+                            
                         </div>
                         <div class="button-list">
                             <a type="button" class="btn btn-primary" href="${urlApprove}">
@@ -371,17 +363,11 @@
         if(dataProposalApproved.length != 0){
             dataProposalApproved.forEach((x) => {
                 
-                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
-                console.log(lembarverifikasi)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ["id"=>":id"])}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
 
-                let urlDownloadProposal = '{{ route("ketua-harian.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlDownloadProposal = urlDownloadProposal.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadProposal = urlDownloadProposal.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadProposal = urlDownloadProposal.replace(':d2', x.filename)
+                let urlDownloadProposal = '{{ route("ketua-harian.download", ["id" => ":id"])}}';
+                urlDownloadProposal = urlDownloadProposal.replace(":id", x.id)
 
 
                 let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
@@ -433,10 +419,7 @@
                                 <i class="material-icons icon--left">launch</i>
                                 Download Lembar Verifikasi
                             </a>
-                            <a type="button" class="btn btn-success" href="${urlDownloadSuratBayar}">
-                                <i class="material-icons icon--left">launch</i>
-                                Download Surat Bayar
-                            </a>
+                            
                         </div>
                     </td>  
                 </tr>`
@@ -466,18 +449,11 @@
         if(dataProposalRejected.length != 0){
             dataProposalRejected.forEach((x) => {
                 
-                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
-                console.log(lembarverifikasi)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+                let urlDownloadLembarVerifikasi = '{{ route("ketua-harian.download_lembarVerifikasi", ["id"=>":id"])}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
 
-                let urlDownloadProposal = '{{ route("ketua-harian.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlDownloadProposal = urlDownloadProposal.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadProposal = urlDownloadProposal.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadProposal = urlDownloadProposal.replace(':d2', x.filename)
-
+                let urlDownloadProposal = '{{ route("ketua-harian.download", ["id" => ":id"])}}';
+                urlDownloadProposal = urlDownloadProposal.replace(":id", x.id)
 
                 let urlDownloadSuratBayar = '{{ route("ketua-harian.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
                 let suratbayar = x.filename.replace('proposal', 'surat bayar')
@@ -527,10 +503,7 @@
                                 <i class="material-icons icon--left">launch</i>
                                 Download Lembar Verifikasi
                             </a>
-                            <a type="button" class="btn btn-success" href="${urlDownloadSuratBayar}">
-                                <i class="material-icons icon--left">launch</i>
-                                Download Surat Bayar
-                            </a>
+                            
                         </div>
                     </td>  
                 </tr>`

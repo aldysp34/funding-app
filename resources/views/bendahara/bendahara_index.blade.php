@@ -199,6 +199,16 @@
             </li>
         </ul>
     </div>
+    <div class="sidebar-heading">
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item">
+                <a href="{{route('bendahara.transfer')}}" class="sidebar-menu-button">
+                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">folder</span> 
+                    <span class="sidebar-menu-text">Transfer</span>
+                </a>
+            </li>
+        </ul>
+    </div>
     @endsection
 
     @section('new_scripts')
@@ -210,20 +220,12 @@
         let tagProposalSend = ''
         if(data.length != 0){
             data.forEach((x) => {
-                
 
-                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
-                console.log(lembarverifikasi)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+                let urlProposalDownload = '{{ route("bendahara.download", ["id" => ":id"])}}';
+                urlProposalDownload = urlProposalDownload.replace(":id", x.id)
 
-                let urlProposalDownload = '{{ route("bendahara.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlProposalDownload = urlProposalDownload.replace(':d1', x.kegiatan.kategori.name)
-                urlProposalDownload = urlProposalDownload.replace(':d2', x.filename)
-
+                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ["id"=>":id"])}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
                  
 
                 let urlUploadSuratBayar = '{{ route("bendahara.upload_suratBayar", ["id" => "data_id", "data" => "data_data"]) }}';
@@ -289,14 +291,7 @@
                             <a class="btn btn-accent" href="${urlDownloadLembarVerifikasi}"><i class="material-icons icon--left">launch</i><strong>Download Lembar Verifikasi</strong></a>
                             <br>
                             <br>
-                            <form action="${urlUploadSuratBayar}" method="POST"  id="uploadDoc" enctype="multipart/form-data">
-                                @csrf
-                                <label for="file" class="btn btn-primary"><i class="material-icons icon--left">launch</i>Upload Surat Bayar</label>
-                                    <input type="file"
-                                    id="file"
-                                    class="custom-file-input" name="file" id="iniFile" onchange="clickMe()">
-                                <button type="submit" id="btnClick" style="display:none"></button>
-                            </form>
+                            
                             
                         </td>  
                     </tr>`
@@ -351,7 +346,6 @@
                             <a class="btn btn-accent" href="${urlDownloadLembarVerifikasi}"><i class="material-icons icon--left">launch</i><strong>Download Lembar Verifikasi</strong></a>
                             <br>
                             <br>
-                            <a class="btn btn-secondary" href="${urlDownloadSuratBayar}"><i class="material-icons icon--left">launch</i><strong>Download Surat Bayar</strong></a>
                             
                         </td>  
                     </tr>`
@@ -382,17 +376,11 @@
         let tagProposalApproved = ''
         if(proposalApproved.length != 0){
             proposalApproved.forEach((x) => {
-                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
-                console.log(lembarverifikasi)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+                let urlDownloadLembarVerifikasi = '{{ route("bendahara.download_lembarVerifikasi", ["id"=>":id"])}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
 
-                let urlProposalDownload = '{{ route("bendahara.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlProposalDownload = urlProposalDownload.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlProposalDownload = urlProposalDownload.replace(':d1', x.kegiatan.kategori.name)
-                urlProposalDownload = urlProposalDownload.replace(':d2', x.filename)
+                let urlProposalDownload = '{{ route("bendahara.download", ["id" => ":id"])}}';
+                urlProposalDownload = urlProposalDownload.replace(":id", x.id)
 
                  
 
@@ -467,7 +455,6 @@
                         <a class="btn btn-accent" href="${urlDownloadLembarVerifikasi}"><i class="material-icons icon--left">launch</i><strong>Download Lembar Verifikasi</strong></a>
                         <br>
                         <br>
-                        <a class="btn btn-secondary" href="${urlDownloadSuratBayar}"><i class="material-icons icon--left">launch</i><strong>Download Surat Bayar</strong></a>
                         
                     </td>  
                 </tr>`

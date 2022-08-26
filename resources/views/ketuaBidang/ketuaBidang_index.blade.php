@@ -12,6 +12,22 @@
     @section('bidang', auth()->user()->bidang->name)
     
     @section('content-section')
+    @if($errors->any())
+    <div class="alert alert-warning mb-0"
+            role="alert">
+        <div class="d-flex flex-wrap align-items-start">
+            <div class="mr-8pt">
+                <i class="material-icons">access_time</i>
+            </div>
+            <div class="flex"
+                    style="min-width: 180px">
+                <small class="text-black-100">
+                    <strong>Warning!</strong> {{ $errors->first() }}
+                </small>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="card dashboard-area-tabs mb-32pt">
         <div class="card-header p-0 nav">
             <div class="row no-gutters"
@@ -194,10 +210,9 @@
             }
         }
         data.forEach((x) => {
-            let url = '{{ route("ketua-bidang.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-            url = url.replace(':id', x.kegiatan.kategori.bidang.name)
-            url = url.replace(':d1', x.kegiatan.kategori.name)
-            url = url.replace(':d2', x.filename)
+            let url = '{{ route("ketua-bidang.download", ["id" => ":id"])}}';
+            url = url.replace(":id", x.id)
+            
 
             let urlDownloadSuratBayar = '{{ route("ketua-bidang.download_suratBayar", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
             urlDownloadSuratBayar = urlDownloadSuratBayar.replace(':id', x.kegiatan.kategori.bidang.name)
@@ -250,10 +265,8 @@
         let tagCancel = '';
 
         cancelData.forEach((x) => {
-            let url = '{{ route("ketua-bidang.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-            url = url.replace(':id', x.kegiatan.kategori.bidang.name)
-            url = url.replace(':d1', x.kegiatan.kategori.name)
-            url = url.replace(':d2', x.filename)
+            let url = '{{ route("ketua-bidang.download", ["id" => ":id"])}}';
+            url = url.replace(":id", x.id)
 
             tagCancel += `
             <tr>

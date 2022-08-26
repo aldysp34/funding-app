@@ -19,7 +19,8 @@ class File extends Model
         'ketuaHarian_approved',
         'verifikator_id',
         'ketuaHarian_id',
-        'kegiatan_id'
+        'kegiatan_id',
+        'folder_path'
     ];
 
     public function suratbayar(){

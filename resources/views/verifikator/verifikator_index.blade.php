@@ -240,10 +240,9 @@
         let dollarUSLocale = Intl.NumberFormat('en-US');
         if(data.length != 0){
             data.forEach((x) => {
-                let urlDownload = '{{ route("verifikator.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlDownload = urlDownload.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownload = urlDownload.replace(':d1', x.kegiatan.kategori.name)
-                urlDownload = urlDownload.replace(':d2', x.filename)
+                
+                let urlDownload = '{{ route("verifikator.download", ["id" => ":id"])}}';
+                urlDownload = urlDownload.replace(":id", x.id)
                 let urlApprove = '{{ route("verifikator.approvedRejected", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlApprove = urlApprove.replace('data_id', x.id);
                 urlApprove = urlApprove.replace('data_data', 1);
@@ -329,21 +328,16 @@
         let tagApprovedHTML = ''
         if(approvedData.length != 0){
             approvedData.forEach((x) => {
-                let urlApprovedDownload = '{{ route("verifikator.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlApprovedDownload = urlApprovedDownload.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlApprovedDownload = urlApprovedDownload.replace(':d1', x.kegiatan.kategori.name)
-                urlApprovedDownload = urlApprovedDownload.replace(':d2', x.filename)
+                let urlApprovedDownload = '{{ route("verifikator.download", ["id" => ":id"])}}';
+                urlApprovedDownload = urlApprovedDownload.replace(":id", x.id)
 
                 let urlUploadLembarVerifikasi = '{{ route("verifikator.upload_lembarVerifikasi", ["id" => "data_id", "data" => "data_data"]) }}';
                 urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_id', x.id);
                 urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_data', x.kegiatan.name);
 
-                let urlDownloadLembarVerifikasi = '{{ route("verifikator.download_lembarVerifikasi", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                let lembarverifikasi = x.filename.replace('proposal', 'lembar verifikasi')
-                console.log(lembarverifikasi)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d1', x.kegiatan.kategori.name)
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':d2', lembarverifikasi)
+                let urlDownloadLembarVerifikasi = '{{ route("verifikator.download_lembarVerifikasi", ["id"=>":id"])}}';
+                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
+                
 
                 if(x.lembar_verifikasi == null){
                     tagApprovedHTML +=
@@ -471,10 +465,8 @@
         let tagRejectedHTML = ''
         if(rejectedData.length != 0){
             rejectedData.forEach((x) => {
-                let urlRejectedDownload = '{{ route("verifikator.download", ["bidang"=>":id", "kategori"=>":d1", "filename"=>":d2"])}}';
-                urlRejectedDownload = urlRejectedDownload.replace(':id', x.kegiatan.kategori.bidang.name)
-                urlRejectedDownload = urlRejectedDownload.replace(':d1', x.kegiatan.kategori.name)
-                urlRejectedDownload = urlRejectedDownload.replace(':d2', x.filename)
+                let urlRejectedDownload = '{{ route("verifikator.download", ["id" => ":id"])}}';
+                urlRejectedDownload = urlRejectedDownload.replace(":id", x.id)
                 tagRejectedHTML +=
                 `<tr>
                     <td>

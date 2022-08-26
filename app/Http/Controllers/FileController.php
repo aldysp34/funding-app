@@ -8,6 +8,7 @@ use App\Models\RincianBiaya;
 use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreFileRequest;
 use App\Models\Kegiatan;
+use App\Models\BuktiTransfer;
 
 class FileController extends Controller
 {
@@ -29,7 +30,7 @@ class FileController extends Controller
             'filename' => $filename,
             'type' => $type,
             'size' => $size,
-            'path' => $path,
+            'folder_path' => $path,
             'status' => 3,
             'ajukan_status' => 1,
             'verifikator_approved' => 0,
@@ -37,32 +38,41 @@ class FileController extends Controller
             'kegiatan_id' => $request->input('kegiatan_id'),
         ]);
 
-        $rincianBiaya = array();
-        for($i=1;$i<4;$i++){
-            $rincianBiaya['volume_'.$i] = $request->input('volume_'.$i);
-            $rincianBiaya['satuan_'.$i] = $request->input('satuan_'.$i);
-        }
-        $rincianBiaya['harga_satuan'] = $request->input('harga_satuan');
-        $rincianBiaya['jumlah'] = $request->input('jumlah');
-        $rincianBiaya['kegiatan_id'] = $request->input('kegiatan_id');
+        // $rincianBiaya = array();
+        // for($i=1;$i<4;$i++){
+        //     $rincianBiaya['volume_'.$i] = $request->input('volume_'.$i);
+        //     $rincianBiaya['satuan_'.$i] = $request->input('satuan_'.$i);
+        // }
+        // $rincianBiaya['harga_satuan'] = $request->input('harga_satuan');
+        // $rincianBiaya['jumlah'] = $request->input('jumlah');
+        // $rincianBiaya['kegiatan_id'] = $request->input('kegiatan_id');
 
-        $biaya = RincianBiaya::where('kegiatan_id', $request->input('kegiatan_id'));
-        $biaya->update($rincianBiaya);
+        // $biaya = RincianBiaya::where('kegiatan_id', $request->input('kegiatan_id'));
+        // $biaya->update($rincianBiaya);
 
         return redirect()->route('ketua-bidang.upload_dokumen')->with(['msg' => 'Berhasil Upload Proposal']);
     }
 
-    public function downloadFile($bidang, $kategori, $filename){
-        $fname = strtolower($filename);
-        $filepath = strtolower("/files"."/".$bidang."/".$kategori."/proposal"."/".$fname);
-        $file = public_path().$filepath;
-        $headers = array(
-            'Content-Type: application/pdf',
-        );
-        if(file_exists($file)){
-            return \Response::download($file, $fname, $headers);
-        }
-        else{
+    public function downloadFile($id){
+        // $fname = strtolower($filename);
+        // $filepath = strtolower("/files"."/".$bidang."/".$kategori."/proposal"."/".$fname);
+        // $file = public_path().$filepath;
+        // $headers = array(
+        //     'Content-Type: application/pdf',
+        // );
+        // if(file_exists($file)){
+        //     return \Response::download($file, $fname, $headers);
+        // }
+        // else{
+        //     return redirect()->back()->withErrors(['msg' => 'File tidak Ditemukan']);
+        // }
+        $file = File::where('id', $id)->first();
+        $filepath = public_path().'/'.$file->folder_path;
+
+        // dd($file->folder_path);
+        if(file_exists($filepath)){
+            return \Response::download($filepath);
+        }else{
             abort(404);
         }
     }

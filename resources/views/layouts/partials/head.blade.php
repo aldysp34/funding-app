@@ -48,6 +48,7 @@
 <link type="text/css"
         href="{{asset('assets/vendor/jqvmap/jqvmap.min.css')}}"
         rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
