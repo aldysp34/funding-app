@@ -7,6 +7,7 @@ use App\Http\Requests\StoreLembarVerifikasiRequest;
 use App\Models\LembarVerifikasi;
 use Illuminate\Http\UploadedFile;
 use App\Models\File;
+use App\Models\RincianBiayaUpdate;
 
 class LembarVerifikasiController extends Controller
 {
@@ -30,8 +31,23 @@ class LembarVerifikasiController extends Controller
             'folder_path' => $path
         ]);
         
+        if($upload){
+            $rincianBiaya = array();
+            for($i=1;$i<4;$i++){
+                $rincianBiaya['volume_'.$i] = $request->input('volume_'.$i);
+                $rincianBiaya['satuan_'.$i] = $request->input('satuan_'.$i);
+            }
+            $rincianBiaya['harga_satuan'] = $request->input('harga_satuan');
+            $rincianBiaya['jumlah'] = $request->input('jumlah');
+            $rincianBiaya['kegiatan_id'] = $request->input('kegiatan_id');
 
-        return redirect()->route('verifikator.home')->with(['msg' => 'Dokumen Berhasil Diupload']);
+            $biaya = RincianBiayaUpdate::create($rincianBiaya);
+            return redirect()->route('verifikator.home')->with(['msg' => 'Dokumen Berhasil Diupload']);
+        }
+
+        abort(404);
+
+        
     }
 
     public function downloadFile($id){

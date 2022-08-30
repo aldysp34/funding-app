@@ -330,14 +330,18 @@
             approvedData.forEach((x) => {
                 let urlApprovedDownload = '{{ route("verifikator.download", ["id" => ":id"])}}';
                 urlApprovedDownload = urlApprovedDownload.replace(":id", x.id)
-
-                let urlUploadLembarVerifikasi = '{{ route("verifikator.upload_lembarVerifikasi", ["id" => "data_id", "data" => "data_data"]) }}';
-                urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_id', x.id);
-                urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_data', x.kegiatan.name);
-
-                let urlDownloadLembarVerifikasi = '{{ route("verifikator.download_lembarVerifikasi", ["id"=>":id"])}}';
-                urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.id)
                 
+                
+                let urlUploadLembarVerifikasi = '{{ route("verifikator.upload_detail", ["id" => "data_id"]) }}'
+                urlUploadLembarVerifikasi = urlUploadLembarVerifikasi.replace('data_id', x.kegiatan.id);
+                console.log()
+
+                let urlDownloadLembarVerifikasi = ''
+                
+                if(x.lembar_verifikasi){
+                    urlDownloadLembarVerifikasi = '{{ route("verifikator.download_lembarVerifikasi", ["id"=>":id"])}}';
+                    urlDownloadLembarVerifikasi = urlDownloadLembarVerifikasi.replace(':id', x.lembar_verifikasi.id)
+                }
 
                 if(x.lembar_verifikasi == null){
                     tagApprovedHTML +=
@@ -379,15 +383,8 @@
                                     <i class="material-icons icon--left">launch</i>
                                     Download File
                                 </a>
-                                <form action="${urlUploadLembarVerifikasi}" method="POST"  id="uploadDoc" enctype="multipart/form-data">
-                                    @csrf
-    
-                                    <label for="file" class="btn btn-primary">Upload Lembar Verifikasi</label>
-                                        <input type="file"
-                                        id="file"
-                                        class="custom-file-input" name="file" id="iniFile" onchange="clickMe()">
-                                    <button type="submit" id="btnClick" style="display:none"></button>
-                                </form>
+                                
+                                <a class="btn btn-primary" href="${urlUploadLembarVerifikasi}"> Upload Lembar Verifikasi</a>
                             </div>
                         </td>  
                     </tr>`

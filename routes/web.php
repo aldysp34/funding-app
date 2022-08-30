@@ -53,6 +53,7 @@ Route::middleware(['auth', 'user-access:2'])->group(function () {
     Route::get('/verifikator/approveRejectProposal/{id}/{data}', [VerifikatorController::class, 'approvedRejectedProposal'])->name('verifikator.approvedRejected');
     Route::post('/verifikator/upload_lembarVerifikasi/{id}/{data}', [LembarVerifikasiController::class, 'store'])->name('verifikator.upload_lembarVerifikasi');
     Route::get('/verifikator/download_lembarVerifikasi/{id}', [LembarVerifikasiController::class, 'downloadFile'])->name('verifikator.download_lembarVerifikasi');
+    Route::get('/verifikator/upload_detail/{id}', [VerifikatorController::class, 'upload_detail'])->name('verifikator.upload_detail');
 });
 
 /* Bendahara Routes List */

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\LembarVerifikasi;
+use App\Models\Kegiatan;
 
 class VerifikatorController extends Controller
 {
@@ -69,5 +70,16 @@ class VerifikatorController extends Controller
         }
 
         return redirect()->back()->with(['msg_approveReject' => $msg]);
+    }
+
+    public function upload_detail($id){
+        $kegiatan = Kegiatan::where('id', $id)->first();
+        $kegiatan->rincianBiaya;
+        $kegiatan->kategori;
+        $kegiatan->bidang;
+        $kegiatan->file;
+        
+    
+        return view('verifikator.verifikator_upload', ['role' => 'Verifikator', 'kegiatan' => $kegiatan]);
     }
 }

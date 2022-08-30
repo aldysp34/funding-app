@@ -32,4 +32,8 @@ class Kegiatan extends Model
     public function rincianBiaya(){
         return $this->hasOne('App\Models\RincianBiaya');
     }
+
+    public function file(){
+        return $this->hasone('App\Models\File');
+    }
 }
