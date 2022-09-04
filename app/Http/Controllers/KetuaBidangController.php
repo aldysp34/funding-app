@@ -80,7 +80,51 @@ class KetuaBidangController extends Controller
         $kegiatan->rincianBiaya;
         $kegiatan->kategori;
         $kegiatan->bidang;
-        return view('ketuaBidang.ketuaBidang_uploadDoc', ['role' => 'KetuaBidang', 'kegiatan' => $kegiatan]);
+        return view('ketuaBidang.ketuaBidang_uploadDoc', ['role' => 'Ketua Bidang', 'kegiatan' => $kegiatan]);
+    }
+
+    public function upload_lpj(Request $request){
+        if($request->ajax()){
+            $kegiatan = Kegiatan::where('bidang_id', auth()->user()->bidang->id)
+                        ->with('bidang')
+                        ->with('rincianBiaya')
+                        ->with('kategori');
+            
+            return DataTables::of($kegiatan)
+                        ->addIndexColumn()
+                        ->editColumn('kategori', function ($kegiatan){
+                            return $kegiatan->kategori->name;
+                        })
+                        ->editColumn('bidang', function ($kegiatan){
+                            return $kegiatan->bidang->name;
+                        })
+                        ->editColumn('anggaran', function ($kegiatan){
+                            return $kegiatan->budget;
+                        })
+                        ->addColumn('action', function($row){
+
+                            $btn = '<a href="'.route("ketua-bidang.view_upload_lpj", ['id' => $row->id]).'" class="edit btn btn-primary btn-sm">Tambahkan LPJ</a>';
+
+                            return $btn;
+                        })
+                        ->removeColumn('volume 1')
+                        ->removeColumn('satuan 1')
+                        ->removeColumn('volume 2')
+                        ->removeColumn('satuan 2')
+                        ->removeColumn('volume 3')
+                        ->removeColumn('satuan 3')
+                        ->rawColumns(['action'])
+                        ->make(true);
+        }
+        return view('ketuaBidang.ketuaBidang_listLPJ', ['role' => 'Ketua Bidang']);
+    }
+
+    public function view_upload_lpj($id){
+        $kegiatan = Kegiatan::where('id', $id)->first();
+        $kegiatan->rincianBiaya;
+        $kegiatan->kategori;
+        $kegiatan->bidang;
+        return view('ketuaBidang.ketuaBidang_uploadLPJ', ['role' => 'Ketua Bidang', 'kegiatan' => $kegiatan]);
     }
 
 

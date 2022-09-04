@@ -111,7 +111,7 @@
     <div class="sidebar-heading">
         <ul class="sidebar-menu">
             <li class="sidebar-menu-item active">
-                <a href="{{route('ketua-bidang.upload_dokumen')}}" class="sidebar-menu-button">
+                <a href="{{route('ketua-bidang.upload_lpj')}}" class="sidebar-menu-button">
                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">folder</span> 
                     <span class="sidebar-menu-text">LPJ</span>
                 </a>
@@ -128,7 +128,7 @@
             let table = $('.data-table').DataTable({
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('ketua-bidang.upload_dokumen')}}",
+                ajax: "{{route('ketua-bidang.upload_lpj')}}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {data:'name', name:'name'},

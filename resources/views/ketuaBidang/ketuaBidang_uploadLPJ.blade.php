@@ -22,13 +22,13 @@
                         role="tab"
                         aria-selected="true"
                         class="dashboard-area-tabs__tab card-body d-flex flex-row align-items-center justify-content-start active">
-                        <span class="h2 mb-0 mr-3">Pengajuan Proposal Baru</span>
+                        <span class="h2 mb-0 mr-3">LPJ Baru</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <form action="{{ route('ketua-bidang.store_dokumen') }}" class="col-md-5 p-0 mx-auto" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('ketua-bidang.store_lpj', ['id' => $kegiatan->file->id, 'data' => $kegiatan->name]) }}" class="col-md-5 p-0 mx-auto" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" name="kegiatan_id" value="{{$kegiatan->id}}" style="display:none">
             <div class="form-group">
@@ -90,7 +90,7 @@
     <div class="sidebar-heading">
         <ul class="sidebar-menu">
             <li class="sidebar-menu-item active">
-                <a href="{{route('ketua-bidang.upload_dokumen')}}" class="sidebar-menu-button">
+                <a href="{{route('ketua-bidang.upload_lpj')}}" class="sidebar-menu-button">
                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">folder</span> 
                     <span class="sidebar-menu-text">LPJ</span>
                 </a>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\File;
 use App\Models\LembarVerifikasi;
 use App\Models\Kegiatan;
+use App\Models\Lpj;
+use DataTables;
 
 class VerifikatorController extends Controller
 {
@@ -82,4 +84,126 @@ class VerifikatorController extends Controller
     
         return view('verifikator.verifikator_upload', ['role' => 'Verifikator', 'kegiatan' => $kegiatan]);
     }
+
+    public function approvedRejectedLpj($id, $data){
+        $lpj = Lpj::findOrFail($id);
+        if($lpj){
+            $lpj->verifikator_approved = $data;
+            $lpj->verifikator_id = auth()->user()->id;
+            $lpj->save();
+        }
+
+        if($data == 1){
+            $msg = 'Berhasil Approve LPJ';
+            $lpj->save();
+        }else if($data == 2){
+            $msg = 'Berhasil Reject LPJ';
+            $lpj->save();
+        }
+
+        return redirect()->back()->with(['msg_approveReject' => $msg]);
+    }
+
+    public function dashboard_lpj(){
+        return view('verifikator.verifikator_lpj', ['role' => 'Verifikator']);
+    }
+
+    public function lpj_need_approved(Request $request){
+        if($request->ajax()){
+
+            $lpj = Lpj::where('verifikator_approved', 0)
+                            ->with('file');
+            return DataTables::of($lpj)
+                        ->addIndexColumn()
+                        ->editColumn('kategori', function ($lpj){
+                            return $lpj->file->kegiatan->kategori->name;
+                        })
+                        ->editColumn('bidang', function ($lpj){
+                            return $lpj->file->kegiatan->bidang->name;
+                        })
+                        ->editColumn('action', function($row){
+                            $btn_ = '';
+                            $btn = '<a href="'.route("verifikator.approvedRejectedLpj", ['id' => $row->id, 'data' => 1]).'" class="edit btn btn-primary btn-sm">Approve</a>';
+                            $btn = $btn.'<a href="'.route("verifikator.approvedRejectedLpj", ['id' => $row->id, 'data' => 2]).'" class="edit btn btn-danger btn-sm">Reject</a>';
+                            $btn = $btn.'<a href="'.route("verifikator.download_lpj", ['id' => $row->id]).'" class="edit btn btn-secondary btn-sm">Download</a>';
+    
+                            return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+        }
+    }
+
+    public function lpj_approved(Request $request){
+        if($request->ajax()){
+
+            $lpj = Lpj::where('verifikator_approved', 1)
+                            ->with('file');
+            return DataTables::of($lpj)
+                        ->addIndexColumn()
+                        ->editColumn('kategori', function ($lpj){
+                            return $lpj->file->kegiatan->kategori->name;
+                        })
+                        ->editColumn('bidang', function ($lpj){
+                            return $lpj->file->kegiatan->bidang->name;
+                        })
+                        ->editColumn('action', function($row){
+                            $btn = '<a href="'.route("verifikator.download_lpj", ['id' => $row->id]).'" class="edit btn btn-primary btn-sm">Download</a>';
+
+                            return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+        }
+    }
+
+    public function lpj_rejected(Request $request){
+        if($request->ajax()){
+
+            $lpj = Lpj::where('verifikator_approved', 2)
+                            ->with('file');
+            return DataTables::of($lpj)
+                        ->addIndexColumn()
+                        ->editColumn('kategori', function ($lpj){
+                            return $lpj->file->kegiatan->kategori->name;
+                        })
+                        ->editColumn('bidang', function ($lpj){
+                            return $lpj->file->kegiatan->bidang->name;
+                        })
+                        ->editColumn('action', function($row){
+                            $btn = '<a href="'.route("verifikator.download_lpj", ['id' => $row->id]).'" class="edit btn btn-primary btn-sm">Download</a>';
+
+                            return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+        }
+    }
+
+    private function create_datatable($verifikator_approved){
+        $lpj = Lpj::where('verifikator_approved', $verifikator_approved)
+                        ->with('file');
+        return DataTables::of($lpj)
+                    ->addIndexColumn()
+                    ->editColumn('kategori', function ($lpj){
+                        return $lpj->file->kegiatan->kategori->name;
+                    })
+                    ->editColumn('bidang', function ($lpj){
+                        return $lpj->file->kegiatan->bidang->name;
+                    })
+                    ->editColumn('action', function($row){
+                        $btn_ = '';
+                        if($verifikator_approved == 0){
+                            $btn = '<a href="'.route("verifikator.approvedRejectedLpj", ['id' => $row->id, 'data' => 1]).'" class="edit btn btn-primary btn-sm">Approve</a>';
+                            $btn = $btn.'<a href="'.route("verifikator.approvedRejectedLpj", ['id' => $row->id, 'data' => 2]).'" class="edit btn btn-danger btn-sm">Reject</a>';
+                        }else{
+                            $btn = '<a href="'.route("verifikator.download_lpj", ['id' => $row->id]).'" class="edit btn btn-primary btn-sm">Download</a>';
+                        }
+
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+    }
+    
 }

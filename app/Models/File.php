@@ -35,7 +35,10 @@ class File extends Model
         return $this->hasOne('App\Models\RincianBiaya');
     }
 
-
+    public function lpj(){
+        return $this->hasOne('App\Models\Lpj');
+    }
+    
     public function verifikator(){
         return $this->belongsTo('App\Models\User', 'verifikator_id');
     }

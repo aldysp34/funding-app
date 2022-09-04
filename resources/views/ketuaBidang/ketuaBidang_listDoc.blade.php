@@ -111,7 +111,7 @@
     <div class="sidebar-heading">
         <ul class="sidebar-menu">
             <li class="sidebar-menu-item">
-                <a href="{{route('ketua-bidang.upload_dokumen')}}" class="sidebar-menu-button">
+                <a href="{{route('ketua-bidang.upload_lpj')}}" class="sidebar-menu-button">
                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">folder</span> 
                     <span class="sidebar-menu-text">LPJ</span>
                 </a>

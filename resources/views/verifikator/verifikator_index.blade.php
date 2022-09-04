@@ -229,6 +229,16 @@
             </li>
         </ul>
     </div>
+    <div class="sidebar-heading">
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item ">
+                <a href="{{route('verifikator.dashboard_lpj')}}" class="sidebar-menu-button">
+                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
+                    <span class="sidebar-menu-text">LPJ</span>
+                </a>
+            </li>
+        </ul>
+    </div>
     @endsection
 
     @section('new_scripts')
