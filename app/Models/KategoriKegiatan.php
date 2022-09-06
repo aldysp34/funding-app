@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kegiatan;
+use App\Models\File;
 
 class KategoriKegiatan extends Model
 {
@@ -14,6 +16,10 @@ class KategoriKegiatan extends Model
     }
 
     public function kegiatan(){
-        return $this->hasMany('App\Models\Kegiatan');
+        return $this->hasMany(Kegiatan::class, 'kategori_id');
+    }
+
+    public function file(){
+        return $this->hasone(File::class, 'kategoriKegiatan_id');
     }
 }

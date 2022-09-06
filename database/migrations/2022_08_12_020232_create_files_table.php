@@ -22,14 +22,15 @@ return new class extends Migration
             $table->integer('ajukan_status');
             $table->integer('verifikator_approved');
             $table->integer('ketuaHarian_approved');
+            $table->string('folder_path');
             $table->unsignedBigInteger('verifikator_id')->nullable();
             $table->unsignedBigInteger('ketuaHarian_id')->nullable();
-            $table->unsignedBigInteger('kegiatan_id');
+            $table->unsignedBigInteger('kategoriKegiatan_id');
             $table->timestamps();
 
             $table->foreign('verifikator_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ketuaHarian_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('kegiatan_id')->references('id')->on('kegiatans')->onDelete('cascade');
+            $table->foreign('kategoriKegiatan_id')->references('id')->on('kategori_kegiatans')->onDelete('cascade');
         });
     }
 

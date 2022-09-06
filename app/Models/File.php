@@ -19,7 +19,7 @@ class File extends Model
         'ketuaHarian_approved',
         'verifikator_id',
         'ketuaHarian_id',
-        'kegiatan_id',
+        'kategoriKegiatan_id',
         'folder_path'
     ];
 
@@ -46,7 +46,12 @@ class File extends Model
     public function ketuaHarian(){
         return $this->belongsTo('App\Models\User', 'ketuaHarian_id');
     }
+
     public function kegiatan(){
         return $this->belongsTo('App\Models\Kegiatan');
+    }
+
+    public function kategoriKegiatan(){
+        return $this->belongsTo('App\Models\KategoriKegiatan', 'kategoriKegiatan_id');
     }
 }

@@ -10,11 +10,11 @@ use App\Models\File;
 class LpjController extends Controller
 {
     public function store(StoreFileRequest $request, $id, $data){
-        $file = File::where('id', $id)->first();
-        $filename = $file->kegiatan->bidang->name.'_'.$file->kegiatan->kategori->name.'_'.$data.'_lpj.'.$request->file->extension();
+        $file = File::where('id', $id)->with('kategoriKegiatan')->first();
+        $filename = $file->kategoriKegiatan->bidang->name.'_'.$file->kategoriKegiatan->name.'_'.$data.'_lpj.'.$request->file->extension();
         $filename = strtolower($filename);
 
-        $filePath = strtolower('files/'.$file->kegiatan->bidang->name.'/'.$file->kegiatan->kategori->name.'/lpj');
+        $filePath = strtolower('files/'.$file->kategoriKegiatan->bidang->name.'/'.$file->kategoriKegiatan->name.'/lpj');
         
         $type = $request->file->getClientMimeType();
         $size = $request->file->getSize();

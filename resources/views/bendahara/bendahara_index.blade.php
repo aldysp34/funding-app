@@ -10,7 +10,9 @@
 
     @section('role', $role)
     
-    @section('bidang', auth()->user()->bidang->name)
+    @if(isset(auth()->user()->bidang->name))
+        @section('bidang', auth()->user()->bidang->name)
+    @endif
 
     @section('content-section')
 

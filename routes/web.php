@@ -39,7 +39,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::middleware(['auth', 'user-access:1'])->group(function () {
     Route::get('/ketua-bidang', [KetuaBidangController::class, 'index'])->name('ketua-bidang.home');
     Route::get('/ketua-bidang/upload_dokumen', [KetuaBidangController::class, 'upload_dokumen'])->name('ketua-bidang.upload_dokumen');
-    Route::get('/ketua-bidang/dokumen/{id}', [KetuaBidangController::class, 'dokumen'])->name('ketua-bidang.dokumen');
+    Route::get('/ketua-bidang/dokumen/{id}/{budget}', [KetuaBidangController::class, 'dokumen'])->name('ketua-bidang.dokumen');
     Route::post('/ketua-bidang/upload', [FileController::class, 'store'])->name('ketua-bidang.store_dokumen');
     Route::get('/ketua-bidang/download_file/{id}', [FileController::class, 'downloadFile'])->name('ketua-bidang.download');
     Route::get('/ketua-bidang/download_suratbayar/{bidang}/{kategori}/{filename}', [SuratBayarController::class, 'downloadFile'])->name('ketua-bidang.download_suratBayar');

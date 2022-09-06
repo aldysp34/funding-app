@@ -20,7 +20,14 @@ return new class extends Migration
             $table->string('size');
             $table->string('folder_path');
             $table->unsignedBigInteger('file_id');
+            $table->tinyInteger('verifikator_approved');
+            $table->tinyInteger('ketuaHarian_approved');
+            $table->unsignedBigInteger('verifikator_id')->nullable();
+            $table->unsignedBigInteger('ketuaHarian_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('verifikator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ketuaHarian_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

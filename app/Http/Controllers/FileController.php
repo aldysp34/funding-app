@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreFileRequest;
 use App\Models\Kegiatan;
 use App\Models\BuktiTransfer;
+use App\Models\KategoriKegiatan;
 
 class FileController extends Controller
 {
@@ -18,11 +19,11 @@ class FileController extends Controller
     }
 
     public function store(StoreFileRequest $request){
-        $kegiatan = Kegiatan::where('id', $request->input('kegiatan_id'))->first();
-        $filename = $kegiatan->bidang->name.'_'.$kegiatan->kategori->name.'_'.$request->input('name').'_proposal.'.$request->file->extension();
+        $kegiatan = KategoriKegiatan::where('id', $request->input('kegiatan_id'))->first();
+        $filename = $kegiatan->bidang->name.'_'.$kegiatan->name.'_'.$request->input('name').'_proposal.'.$request->file->extension();
         $filename = strtolower($filename);
 
-        $filePath = strtolower('files/'.$kegiatan->bidang->name.'/'.$kegiatan->kategori->name.'/proposal');
+        $filePath = strtolower('files/'.$kegiatan->bidang->name.'/'.$kegiatan->name.'/proposal');
         $type = $request->file->getClientMimeType();
         $size = $request->file->getSize();
         $path = $request->file->move($filePath, $filename);
@@ -35,8 +36,12 @@ class FileController extends Controller
             'ajukan_status' => 1,
             'verifikator_approved' => 0,
             'ketuaHarian_approved' => 0,
-            'kegiatan_id' => $request->input('kegiatan_id'),
+            'kategoriKegiatan_id' => $request->input('kegiatan_id'),
         ]);
+        if($fileCreate){
+            $kegiatan->budget_diajukan = $request->input('budget_2');
+            $kegiatan->save();
+        }
 
         // $rincianBiaya = array();
         // for($i=1;$i<4;$i++){

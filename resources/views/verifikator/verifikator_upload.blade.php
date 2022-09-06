@@ -9,7 +9,9 @@
     @section('name', auth()->user()->name)
 
     @section('role', $role)
-    @section('bidang', auth()->user()->bidang->name)
+    @if(isset(auth()->user()->bidang->name))
+        @section('bidang', auth()->user()->bidang->name)
+    @endif
     
     @section('content-section')
     <div class="card dashboard-area-tabs mb-32pt">

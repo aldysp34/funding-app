@@ -22,4 +22,8 @@ class Bidang extends Model
     public function kegiatan(){
         return $this->hasMany('App\Models\Kegiaan');
     }
+
+    public function kategoriKegiatan(){
+        return $this->hasMany('App\Models\KategoriKegiatan');
+    }
 }

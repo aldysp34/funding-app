@@ -26,7 +26,7 @@ class StoreBuktiTransferRequest extends FormRequest
     {
         return [
             'npwp_penerima' => 'required|string|min:15',
-            'file' => 'required|mimes:png,jpg|max:2048'
+            'file' => 'required|mimes:png,jpg,pdf|max:2048'
         ];
     }
 }

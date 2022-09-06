@@ -18,7 +18,7 @@ class Kegiatan extends Model
     ];
 
     public function kategori(){
-        return $this->belongsTo('App\Models\KategoriKegiatan');
+        return $this->belongsTo('App\Models\KategoriKegiatan', 'kategori_id');
     }
 
     public function bidang(){

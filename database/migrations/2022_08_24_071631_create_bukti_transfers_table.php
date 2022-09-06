@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('size');
             $table->unsignedBigInteger('bank_id');
+            $table->string('folder_path');
             $table->timestamps();
 
             $table->foreign('bank_id')->references('id')->on('banks')->onDelete('cascade');

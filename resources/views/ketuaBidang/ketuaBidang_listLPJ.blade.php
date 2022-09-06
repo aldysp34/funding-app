@@ -9,7 +9,9 @@
     @section('name', auth()->user()->name)
 
     @section('role', $role)
-    @section('bidang', auth()->user()->bidang->name)
+    @if(isset(auth()->user()->bidang->name))
+        @section('bidang', auth()->user()->bidang->name)
+    @endif
     
     @section('content-section')
     @if($errors->any())
@@ -64,7 +66,6 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Kegiatan</th>
                     <th>Kategori</th>
                     <th>Bidang</th>
                     <th>Anggaran</th>
@@ -131,7 +132,6 @@
                 ajax: "{{route('ketua-bidang.upload_lpj')}}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                    {data:'name', name:'name'},
                     {data:'kategori', name:'kegiatan->name'},
                     {data:'bidang', name:'bidang->name'},
                     {data:'anggaran', name:'kegiatan->budget'},

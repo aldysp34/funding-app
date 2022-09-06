@@ -9,7 +9,9 @@
     @section('name', auth()->user()->name)
 
     @section('role', $role)
-    @section('bidang', auth()->user()->bidang->name)
+    @if(isset(auth()->user()->bidang->name))
+        @section('bidang', auth()->user()->bidang->name)
+    @endif
     
     @section('content-section')
     <div class="card dashboard-area-tabs mb-32pt">
@@ -31,15 +33,14 @@
         <form action="{{ route('ketua-bidang.store_dokumen') }}" class="col-md-5 p-0 mx-auto" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" name="kegiatan_id" value="{{$kegiatan->id}}" style="display:none">
-            <div class="form-group">
-                <label for="name" class="form-label">Nama Kegiatan</label>
-                <select name="name" id="name" class="form-control" data-toggle="select">
-                    <option value="{{$kegiatan->name}}">{{$kegiatan->name}}</option>
-                </select>
-            </div>
+            
             <div class="form-group">
                 <label for="budget" class="form-label">Anggaran</label>
                 <input type="number" name="budget" id="budget" required autofocus placeholder="Volume..." value="{{ $kegiatan->budget }}" readonly="readonly">
+            </div>
+            <div class="form-group">
+                <label for="budegt2" class="form-label">Anggaran Yang Diajukan</label>
+                <input type="number" name="budget_2" id="budget_2" required autofocus placeholder="Volume...">
             </div>
             <div class="form-group m-0">
                 <div class="custom-file">

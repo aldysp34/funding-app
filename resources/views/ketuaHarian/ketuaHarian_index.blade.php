@@ -10,7 +10,9 @@
 
     @section('role', $role)
 
-    @section('bidang', auth()->user()->bidang->name)
+    @if(isset(auth()->user()->bidang->name))
+        @section('bidang', auth()->user()->bidang->name)
+    @endif
 
 
     
@@ -92,6 +94,16 @@
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
+                                data-sort="js-lists-values-status">Kategori</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Bidang</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
                                 data-sort="js-lists-values-status">Verifikator</a>
                         </th>
                         <th style="width: 48px;">
@@ -147,6 +159,16 @@
                             <a href="javascript:void(0)"
                                 class="sort"
                                 data-sort="js-lists-values-project">Proposal</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Kategori</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Bidang</a>
                         </th>
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
@@ -209,8 +231,19 @@
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
+                                data-sort="js-lists-values-status">Kategori</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
+                                data-sort="js-lists-values-status">Bidang</a>
+                        </th>
+                        <th style="width: 48px;">
+                            <a href="javascript:void(0)"
+                                class="sort"
                                 data-sort="js-lists-values-status">Verifikator</a>
                         </th>
+                        
                         <th style="width: 48px;">
                             <a href="javascript:void(0)"
                                 class="sort"
@@ -314,6 +347,28 @@
         
                     </td>
                     <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.kategori.name}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.kategori.bidang.name}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
                         <div class="d-flex flex-column">
                             <div class="js-lists-values-project h5"><strong>${x.verifikator.name}</strong></div>
                         </div>
@@ -410,6 +465,28 @@
         
                     </td>
                     <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.kategori.name}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.kategori.bidang.name}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
                         <div class="d-flex flex-column">
                             <div class="js-lists-values-project h5"><strong>${x.verifikator.name}</strong></div>
                         </div>
@@ -488,6 +565,28 @@
                             <div class="media-body">
                                 <div class="d-flex flex-column">
                                     <div class="js-lists-values-project h5"><strong>${x.kegiatan.name}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.kategori.name}</strong></a>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </td>
+                    <td>
+                        <div class="media flex-nowrap align-items-center"
+                                style="white-space: nowrap;">
+                            <div class="media-body">
+                                <div class="d-flex flex-column">
+                                    <div class="js-lists-values-project h5"><strong>${x.kegiatan.kategori.bidang.name}</strong></a>
                                 </div>
                             </div>
                         </div>

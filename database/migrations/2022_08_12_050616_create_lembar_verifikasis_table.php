@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('size');
             $table->unsignedBigInteger('file_id');
+            $table->string('folder_path');
             $table->timestamps();
 
             $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
